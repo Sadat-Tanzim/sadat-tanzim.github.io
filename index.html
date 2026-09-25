@@ -472,9 +472,15 @@
   .mk-core { fill: var(--amber); }
   .mark:hover .mk-orbit { stroke: var(--cyan); }
   .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+
+  /* Animated background canvas */
+  #bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; display: block; }
+  main, footer { position: relative; z-index: 1; }
+  @media print { #bg { display: none; } }
 </style>
 </head>
 <body>
+<canvas id="bg" aria-hidden="true"></canvas>
 
 <header class="top">
   <div class="wrap">
@@ -1573,6 +1579,106 @@ themeBtn.addEventListener("click", () => { const t = root.getAttribute("data-the
 
 renderHome();
 route();
+/* ---------- Background: a living neural network ---------- */
+(function () {
+  const cv = document.getElementById("bg"); if (!cv || !cv.getContext) return;
+  const ctx = cv.getContext("2d");
+  const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
+  let W = 0, H = 0, dpr = 1, nodes = [], edges = [], out = [], spikes = [], col = {};
+  let mouse = { x: -1e4, y: -1e4 }, raf = 0, last = performance.now(), lastSpont = 0, t0 = performance.now();
+
+  function readColors() {
+    const cs = getComputedStyle(document.documentElement), g = (n, d) => (cs.getPropertyValue(n).trim() || d);
+    col = { cyan: g("--cyan", "#7FD3FF"), line: g("--line", "#24405F"), muted: g("--muted", "#93A8C2") };
+  }
+  const rgba = (hex, a) => { const m = hex.match(/^#?([\da-f]{2})([\da-f]{2})([\da-f]{2})$/i); return m ? `rgba(${parseInt(m[1], 16)},${parseInt(m[2], 16)},${parseInt(m[3], 16)},${a})` : hex; };
+  // quieter behind the reading column, stronger at the edges
+  const fadeAt = (x) => { const half = Math.min(560, W / 2), d = Math.abs(x - W / 2); return d < half - 80 ? 0.35 : d < half + 80 ? 0.35 + 0.65 * (d - half + 80) / 160 : 1; };
+
+  function build() {
+    dpr = Math.min(window.devicePixelRatio || 1, 1.5); W = innerWidth; H = innerHeight;
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); cv.style.width = W + "px"; cv.style.height = H + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    // neurons scattered on a jittered grid so they spread evenly but look organic
+    const cell = W < 700 ? 92 : 78; nodes = [];
+    for (let y = -cell / 2; y < H + cell; y += cell) for (let x = -cell / 2; x < W + cell; x += cell) {
+      const nx = x + (Math.random() - 0.5) * cell * 0.9, ny = y + (Math.random() - 0.5) * cell * 0.9;
+      nodes.push({ bx: nx, by: ny, x: nx, y: ny, r: 1.4 + Math.random() * 1.8, p: Math.random() * 6.28, q: Math.random() * 6.28,
+        f: 0.15 + Math.random() * 0.25, glow: 0, rest: 0, fade: fadeAt(nx) });
+    }
+    // each neuron links to its nearest neighbours with gently curved axons
+    const seen = new Set(); edges = []; out = nodes.map(() => []);
+    nodes.forEach((a, i) => {
+      const near = nodes.map((b, j) => [j, (a.bx - b.bx) ** 2 + (a.by - b.by) ** 2]).filter(([j, d]) => j !== i && d < (cell * 1.9) ** 2)
+        .sort((u, v) => u[1] - v[1]).slice(0, 2 + ((Math.random() * 3) | 0));
+      near.forEach(([j]) => {
+        const key = i < j ? i + "-" + j : j + "-" + i; if (seen.has(key)) return; seen.add(key);
+        const e = { a: i, b: j, bend: (Math.random() - 0.5) * 0.5 }; edges.push(e);
+        out[i].push({ e, to: j, fwd: true }); out[j].push({ e, to: i, fwd: false });
+      });
+    });
+    spikes = [];
+  }
+  function ctrl(e) {
+    const A = nodes[e.a], B = nodes[e.b], mx = (A.x + B.x) / 2, my = (A.y + B.y) / 2;
+    return [mx - (B.y - A.y) * e.bend, my + (B.x - A.x) * e.bend];
+  }
+  function fire(i, now) {
+    const n = nodes[i]; if (now < n.rest) return;
+    n.glow = 1; n.rest = now + 1400;
+    for (const o of out[i]) if (spikes.length < 60 && Math.random() < 0.55) spikes.push({ o, from: i, s: 0, v: 0.9 + Math.random() * 0.8 });
+  }
+
+  function frame(now) {
+    const dt = Math.min(0.05, (now - last) / 1000); last = now;
+    const t = (now - t0) / 1000, animate = !reduce.matches;
+    ctx.clearRect(0, 0, W, H);
+    for (const n of nodes) {
+      n.x = n.bx + (animate ? Math.sin(t * n.f + n.p) * 5 : 0);
+      n.y = n.by + (animate ? Math.cos(t * n.f * 1.2 + n.q) * 5 : 0);
+      n.glow *= Math.pow(0.12, dt);
+      if (animate && (n.x - mouse.x) ** 2 + (n.y - mouse.y) ** 2 < 6400) fire(nodes.indexOf(n), now);
+    }
+    // axons
+    ctx.lineWidth = 1.1;
+    for (const e of edges) {
+      const A = nodes[e.a], B = nodes[e.b], [cx, cy] = ctrl(e), g = Math.max(A.glow, B.glow);
+      ctx.strokeStyle = rgba(g > 0.15 ? col.cyan : col.line, (g > 0.15 ? 0.25 + g * 0.4 : 0.95) * Math.min(A.fade, B.fade));
+      ctx.beginPath(); ctx.moveTo(A.x, A.y); ctx.quadraticCurveTo(cx, cy, B.x, B.y); ctx.stroke();
+    }
+    // spikes travelling along axons, firing the next neuron when they arrive
+    if (animate) {
+      if (now - lastSpont > 260) { fire((Math.random() * nodes.length) | 0, now); lastSpont = now; }
+      spikes = spikes.filter((sp) => {
+        const e = sp.o.e, A = nodes[e.a], B = nodes[e.b], len = Math.hypot(B.x - A.x, B.y - A.y) || 1;
+        sp.s += (sp.v * 160 / len) * dt;
+        if (sp.s >= 1) { if (Math.random() < 0.7) fire(sp.o.to, now); else nodes[sp.o.to].glow = Math.max(nodes[sp.o.to].glow, 0.5); return false; }
+        const u = sp.o.fwd ? sp.s : 1 - sp.s, [cx, cy] = ctrl(e), iu = 1 - u;
+        const x = iu * iu * A.x + 2 * iu * u * cx + u * u * B.x, y = iu * iu * A.y + 2 * iu * u * cy + u * u * B.y, fa = Math.min(A.fade, B.fade);
+        ctx.fillStyle = rgba(col.cyan, 0.18 * fa); ctx.beginPath(); ctx.arc(x, y, 5, 0, 6.283); ctx.fill();
+        ctx.fillStyle = rgba(col.cyan, 0.9 * fa); ctx.beginPath(); ctx.arc(x, y, 1.8, 0, 6.283); ctx.fill();
+        return true;
+      });
+    }
+    // neurons
+    for (const n of nodes) {
+      if (n.glow > 0.04) { ctx.fillStyle = rgba(col.cyan, n.glow * 0.3 * n.fade); ctx.beginPath(); ctx.arc(n.x, n.y, n.r + 9 * n.glow, 0, 6.283); ctx.fill(); }
+      ctx.fillStyle = rgba(n.glow > 0.2 ? col.cyan : col.muted, (0.5 + n.glow * 0.5) * n.fade);
+      ctx.beginPath(); ctx.arc(n.x, n.y, n.r + n.glow * 1.2, 0, 6.283); ctx.fill();
+    }
+    raf = animate && !document.hidden ? requestAnimationFrame(frame) : 0;
+  }
+  const start = () => { if (!raf) { last = performance.now(); raf = requestAnimationFrame(frame); } };
+  readColors(); build(); start();
+  let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => { build(); if (reduce.matches) frame(performance.now()); }, 150); });
+  addEventListener("pointermove", (e) => { mouse.x = e.clientX; mouse.y = e.clientY; }, { passive: true });
+  document.addEventListener("pointerleave", () => { mouse.x = mouse.y = -1e4; });
+  document.addEventListener("visibilitychange", () => { if (!document.hidden) start(); });
+  new MutationObserver(() => { readColors(); if (!raf) frame(performance.now()); }).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  const mq = matchMedia("(prefers-color-scheme: dark)"); (mq.addEventListener ? mq.addEventListener("change", readColors) : mq.addListener(readColors));
+  (reduce.addEventListener ? reduce.addEventListener("change", start) : reduce.addListener(start));
+})();
+
 
 </script>
 </body>
