@@ -13,15 +13,16 @@
 <style>
   /* ---------- Theme tokens ---------- */
   :root {
-    --bg: #F4F7FB;
+    --bg: #F5F8FA;
     --surface: #FFFFFF;
-    --line: #C9D6E5;
-    --grid: rgba(20, 60, 110, 0.07);
-    --text: #10233B;
-    --muted: #52677F;
-    --cyan: #0B6FA8;
-    --amber: #A45F00;
-    --amber-soft: rgba(164, 95, 0, 0.10);
+    --line: #D3DEE6;
+    --net: #A9BFCC;
+    --grid: rgba(14, 116, 144, 0.06);
+    --text: #0F1E2E;
+    --muted: #4E6272;
+    --cyan: #0E7490;
+    --amber: #C2410C;
+    --amber-soft: #FFF4EC;
     --on-accent: #FFFFFF;
     --display: "Barlow Condensed", "Noto Sans Bengali", "Arial Narrow", "Roboto Condensed", sans-serif;
     --body: "Barlow", "Noto Sans Bengali", "Segoe UI", system-ui, -apple-system, sans-serif;
@@ -31,14 +32,14 @@
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
-      --bg: #0D1B2E; --surface: #132640; --line: #24405F;
+      --bg: #0D1B2E; --surface: #132640; --line: #24405F; --net: #24405F;
       --grid: rgba(127, 211, 255, 0.055); --text: #E3ECF6; --muted: #93A8C2;
       --cyan: #7FD3FF; --amber: #FFB547; --amber-soft: rgba(255, 181, 71, 0.10);
       --on-accent: #0D1B2E;
     }
   }
   :root[data-theme="dark"] {
-    --bg: #0D1B2E; --surface: #132640; --line: #24405F;
+    --bg: #0D1B2E; --surface: #132640; --line: #24405F; --net: #24405F;
     --grid: rgba(127, 211, 255, 0.055); --text: #E3ECF6; --muted: #93A8C2;
     --cyan: #7FD3FF; --amber: #FFB547; --amber-soft: rgba(255, 181, 71, 0.10);
     --on-accent: #0D1B2E;
@@ -507,6 +508,22 @@
     .ico { width: 40px; height: 40px; } .ico svg { width: 24px; height: 24px; }
     .note-meta { flex-direction: row; align-items: center; }
   }
+
+  /* Light theme polish */
+  :root:not([data-theme="dark"]) .now { background: var(--surface); }
+  @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) .now { background: var(--amber-soft); } }
+  :root[data-theme="light"] .now, :root[data-theme="light"] .pub, :root[data-theme="light"] .sheet, :root[data-theme="light"] .video-card { background: var(--surface); box-shadow: 0 1px 2px rgba(15, 30, 46, 0.05), 0 8px 24px -12px rgba(15, 30, 46, 0.12); }
+  :root[data-theme="light"] .now { border-top: 3px solid var(--amber); border-left-color: var(--line); border-left-width: 1px; }
+  :root[data-theme="light"] .ico { background: #EAF4F7; }
+  :root[data-theme="light"] .ico.amber { background: #FFF1E8; }
+  :root[data-theme="light"] .fig-btn { border-color: var(--line); }
+  :root[data-theme="light"] header.top { background: rgba(255, 255, 255, 0.86); }
+
+  :root[data-theme="light"] .sheet, :root[data-theme="light"] .portrait { border-color: #AFC2CF; }
+  :root[data-theme="light"] .title-block, :root[data-theme="light"] .d-meta { border-top-color: #AFC2CF; }
+  :root[data-theme="light"] .register, :root[data-theme="light"] .dirs, :root[data-theme="light"] .lab-list,
+  :root[data-theme="light"] .notes-list, :root[data-theme="light"] .results, :root[data-theme="light"] .pager,
+  :root[data-theme="light"] footer { border-top-color: var(--cyan); }
 </style>
 </head>
 <body>
@@ -1653,7 +1670,7 @@ route();
 
   function readColors() {
     const cs = getComputedStyle(document.documentElement), g = (n, d) => (cs.getPropertyValue(n).trim() || d);
-    col = { cyan: g("--cyan", "#7FD3FF"), line: g("--line", "#24405F"), muted: g("--muted", "#93A8C2") };
+    col = { cyan: g("--cyan", "#7FD3FF"), line: g("--net", g("--line", "#24405F")), muted: g("--muted", "#93A8C2") };
   }
   const rgba = (hex, a) => { const m = hex.match(/^#?([\da-f]{2})([\da-f]{2})([\da-f]{2})$/i); return m ? `rgba(${parseInt(m[1], 16)},${parseInt(m[2], 16)},${parseInt(m[3], 16)},${a})` : hex; };
   const fadeAt = (x) => { const half = Math.min(560, W / 2), d = Math.abs(x - W / 2); return d < half - 80 ? 0.35 : d < half + 80 ? 0.35 + 0.65 * (d - half + 80) / 160 : 1; };
