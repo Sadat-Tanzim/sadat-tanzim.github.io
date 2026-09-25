@@ -49,10 +49,6 @@
   body {
     margin: 0;
     background-color: var(--bg);
-    background-image:
-      linear-gradient(var(--grid) 1px, transparent 1px),
-      linear-gradient(90deg, var(--grid) 1px, transparent 1px);
-    background-size: 24px 24px;
     color: var(--text);
     font-family: var(--body);
     font-size: 1.0625rem;
@@ -477,6 +473,40 @@
   #bg { position: fixed; inset: 0; z-index: 0; pointer-events: none; display: block; }
   main, footer { position: relative; z-index: 1; }
   @media print { #bg { display: none; } }
+
+  /* ---------- Icons ---------- */
+  .ico { flex: none; width: 46px; height: 46px; display: inline-grid; place-items: center; border: 1.5px solid var(--cyan); color: var(--cyan);
+    background: color-mix(in srgb, var(--cyan) 7%, var(--bg)); }
+  .ico svg { width: 31px; height: 31px; fill: none; stroke: currentColor; stroke-width: 1.55; stroke-linecap: round; stroke-linejoin: round; overflow: visible; }
+  .ico .f { fill: currentColor; stroke: none; }
+  .ico .thin { stroke-width: 0.8; opacity: 0.55; }
+  .ico .bold { stroke-width: 2; }
+  .ico .half { stroke-width: 3.2; opacity: 0.35; }
+  .ico.amber { border-color: var(--amber); color: var(--amber); background: color-mix(in srgb, var(--amber) 8%, var(--bg)); }
+  .awards span.ico, .comm span.ico, .note-meta span.ico, .yr span.ico { color: var(--cyan); font-size: 1rem; }
+  .awards span.ico.amber { color: var(--amber); }
+  .ico.big { display: grid; width: 68px; height: 68px; margin-bottom: 1rem; }
+  .ico.big svg { width: 44px; height: 44px; }
+  .now-top { display: flex; align-items: center; gap: 0.8rem; margin-bottom: 0.7rem; }
+  .now-top .phase { margin-bottom: 0; }
+  .proj .yr { display: flex; flex-direction: column; gap: 0.55rem; align-items: flex-start; }
+  .lab-item { grid-template-columns: 3.75rem 1fr auto; }
+  .comm li { grid-template-columns: 3.75rem 1fr; }
+  .comm .when { margin-bottom: 0.15rem; }
+  .pub { display: grid; grid-template-columns: 3.75rem 1fr; gap: 1rem; }
+  .awards li { grid-template-columns: 3.75rem 1fr; align-items: start; }
+  .awards .aw-yr { display: block; font-style: normal; color: var(--cyan); font-weight: 600; font-size: 0.88rem; }
+  .note-meta { display: flex; flex-direction: column; gap: 0.6rem; align-items: flex-start; }
+  .note-item { grid-template-columns: 8rem 1fr; }
+  .proj:hover .ico, .lab-item:hover .ico, .note-item:hover .ico { background: color-mix(in srgb, var(--cyan) 16%, var(--bg)); }
+  .now:hover .ico.amber { background: color-mix(in srgb, var(--amber) 16%, var(--bg)); }
+  @media (max-width: 680px) {
+    .proj .yr { flex-direction: row; align-items: center; gap: 0.75rem; }
+    .lab-item { grid-template-columns: 3.25rem 1fr; }
+    .comm li, .pub, .awards li { grid-template-columns: 3.25rem 1fr; }
+    .ico { width: 40px; height: 40px; } .ico svg { width: 24px; height: 24px; }
+    .note-meta { flex-direction: row; align-items: center; }
+  }
 </style>
 </head>
 <body>
@@ -1035,6 +1065,38 @@ DETAILS["aerial-ground-navigation"].demo = "astar";
 DETAILS["ackermann-steering"].demo = "ackermann";
 DETAILS["swirl-heat-exchanger"].demo = "hx";
 
+/* ---------- Icons (original line drawings for each item) ---------- */
+const ICONS = {
+  lattice: '<path d="M12 12l7 0M12 12l3.5-6M12 12l-3.5-6M12 12l-7 0M12 12l-3.5 6M12 12l3.5 6M19 12l-3.5-6-7 0-3.5 6 3.5 6 7 0z"/><circle cx="12" cy="12" r="1.9" class="f"/><circle cx="19" cy="12" r="1.7" class="f"/><circle cx="15.5" cy="6" r="1.7" class="f"/><circle cx="8.5" cy="6" r="1.7" class="f"/><circle cx="5" cy="12" r="1.7" class="f"/><circle cx="8.5" cy="18" r="1.7" class="f"/><circle cx="15.5" cy="18" r="1.7" class="f"/>',
+  balloon: '<ellipse cx="12" cy="7.5" rx="5" ry="5.5"/><path d="M12 13v3.5"/><rect x="9.5" y="16.5" width="5" height="5.5" rx="1"/><path d="M9.5 18.5h5"/>',
+  fly: '<ellipse cx="12" cy="14" rx="2.4" ry="5.2"/><circle cx="12" cy="6.8" r="2"/><path d="M10.2 11.5C6 8.5 2.8 10 3.5 12.8c.6 2.2 4 2.3 6.8.9M13.8 11.5c4.2-3 7.4-1.5 6.7 1.3-.6 2.2-4 2.3-6.8.9M11 5.2 9.5 3M13 5.2 14.5 3M12 12v4"/>',
+  droneRover: '<path d="M7 5.5l4 2m6-2l-4 2"/><circle cx="6" cy="5" r="1.8"/><circle cx="18" cy="5" r="1.8"/><rect x="10" y="6.5" width="4" height="2.2" rx=".6"/><path d="M12 9.5v3" stroke-dasharray="1.2 1.6"/><rect x="6.5" y="14" width="11" height="4.2" rx="1"/><circle cx="8.8" cy="19.7" r="1.6"/><circle cx="15.2" cy="19.7" r="1.6"/>',
+  pipeSwirl: '<rect x="2.5" y="7" width="19" height="10" rx="1.5"/><path d="M2.5 10h19M2.5 14h19"/><path d="M4 12c1.2-1.6 2.3-1.6 3.5 0s2.3 1.6 3.5 0 2.3-1.6 3.5 0 2.3 1.6 3.5 0 2.3-1.6 2.5 0"/><path d="M6 7V4.5h2.5M18 17v2.5h-2.5"/>',
+  steering: '<circle cx="12" cy="12" r="8.5"/><circle cx="12" cy="12" r="2.3"/><path d="M4 11.2c2.5-1 5-1.2 5.8 0M20 11.2c-2.5-1-5-1.2-5.8 0M12 14.3v6"/>',
+  robot: '<rect x="5.5" y="8" width="13" height="10.5" rx="2.2"/><circle cx="9.5" cy="12.5" r="1.3" class="f"/><circle cx="14.5" cy="12.5" r="1.3" class="f"/><path d="M9.5 15.8h5M12 8V5M3.5 12v3M20.5 12v3"/><circle cx="12" cy="4" r="1.2"/>',
+  trophy: '<path d="M8 4h8v5a4 4 0 0 1-8 0V4z"/><path d="M8 5.5H5.5a2.5 2.5 0 0 0 2.8 3.9M16 5.5h2.5a2.5 2.5 0 0 1-2.8 3.9M12 13v3.5M8.5 20h7M9.5 20l.8-3.5h3.4l.8 3.5"/>',
+  teach: '<rect x="3.5" y="4" width="17" height="11" rx="1"/><path d="M7 19.5l2-4.5M17 19.5l-2-4.5M12 15v5"/><path d="M6.5 11l2.2-3 2 2.2 2.3-3.6 2.2 2.4 2.3-1.8"/>',
+  drop: '<path d="M12 3.5s-6 6.8-6 11a6 6 0 0 0 12 0c0-4.2-6-11-6-11z"/><path d="M12 12v5M9.5 14.5h5"/>',
+  medal: '<path d="M8 3l3 6M16 3l-3 6"/><circle cx="12" cy="14.5" r="5.5"/><path d="M12 11.6l.9 1.9 2 .3-1.5 1.4.4 2-1.8-1-1.8 1 .4-2-1.5-1.4 2-.3z"/>',
+  paper: '<path d="M6 3h8.5L19 7.5V21H6z"/><path d="M14.5 3v4.5H19M9 11h7M9 14h7M9 17h4.5"/>',
+  badge: '<path d="M12 3l7 3v5.5c0 4.4-3 8-7 9.5-4-1.5-7-5.1-7-9.5V6z"/><path d="M12 8.2l1.2 2.5 2.7.4-2 1.9.5 2.7-2.4-1.3-2.4 1.3.5-2.7-2-1.9 2.7-.4z"/>',
+  mesh: '<path d="M3 20h18L12 4z"/><path d="M7.5 12l9 0M5.2 16h13.6M7.5 12l3.5 8M16.5 12l-3.5 8M12 4l-4.5 8M12 4l4.5 8"/><circle cx="12" cy="4" r="1.8" class="f"/>',
+  encoder: '<circle cx="12" cy="12" r="8.5"/><path d="M12 12V3.5" /><path d="M12 3.5a8.5 8.5 0 0 1 0 17" class="half"/><circle cx="12" cy="12" r="2.2" class="f"/><path d="M12 1.8v1.7M12 20.5v1.7M1.8 12h1.7M20.5 12h1.7"/>',
+  checklist: '<path d="M4 6.5l1.5 1.5L8 5.5M4 12l1.5 1.5L8 11M4 17.5l1.5 1.5L8 16.5M11 7h9M11 12.5h9M11 18h6"/>',
+  gridPath: '<rect x="3" y="3" width="18" height="18" rx="1"/><path d="M9 3v18M15 3v18M3 9h18M3 15h18" class="thin"/><path d="M6 18l3-3h6l3-6V6" class="bold"/><circle cx="6" cy="18" r="1.6" class="f"/><rect x="16.6" y="4.6" width="2.8" height="2.8" class="f"/>',
+  angle: '<path d="M3 20h18"/><path d="M3 20l11-12"/><path d="M8.5 20a5.5 5.5 0 0 0-1.6-3.9"/><rect x="13" y="4" width="3" height="6" rx="1" transform="rotate(42 14.5 7)"/><circle cx="3" cy="20" r="1.4" class="f"/>',
+  heat: '<path d="M9 14.5V5a2.5 2.5 0 0 1 5 0v9.5a4 4 0 1 1-5 0z"/><circle cx="11.5" cy="17.5" r="1.8" class="f"/><path d="M11.5 16V9M17 7h4m-1.5-1.5L21 7l-1.5 1.5M17 12h4m-1.5-1.5L21 12l-1.5 1.5"/>'
+};
+const icon = (name, extra = "") => ICONS[name] ? `<span class="ico ${extra}" aria-hidden="true"><svg viewBox="0 0 24 24">${ICONS[name]}</svg></span>` : "";
+const ICON_OF = {
+  "cocrni-thesis": "lattice", "vertiscan": "balloon", "fly-brain-robot": "fly",
+  "aerial-ground-navigation": "droneRover", "swirl-heat-exchanger": "pipeSwirl", "ackermann-steering": "steering",
+  astar: "gridPath", ackermann: "angle", hx: "heat",
+  "fea-singularity": "mesh", "encoder-calibration": "encoder", "lammps-mdmc": "checklist"
+};
+SITE.community.forEach((c, i) => { c.icon = ["robot", "trophy", "teach", "drop"][i]; });
+SITE.achievements.forEach((a) => { a.icon = /Runner-Up/.test(a.title) ? "medal" : /paper|MARSCON/i.test(a.title) ? "paper" : /Scout/.test(a.title) ? "badge" : "medal"; });
+
 /* =====================================================================
    Page logic (no need to edit below this line)
    ===================================================================== */
@@ -1132,7 +1194,7 @@ function renderHome() {
 
   $("nowWrap").innerHTML = secHead(T("h_now"), T("note_now")) + `<div class="now-grid">${SITE.current.map((p) => `
     <article class="now">
-      <span class="phase">${esc(p.role)}</span>
+      <div class="now-top">${icon(ICON_OF[p.id], "amber")}<span class="phase">${esc(p.role)}</span></div>
       <h3><a class="stretch" href="#/p/${p.id}">${esc(p.title)}</a></h3>
       <p>${esc(p.description)}</p>
       ${stageBar(p)}
@@ -1144,7 +1206,7 @@ function renderHome() {
 
   $("projectsWrap").innerHTML = secHead(T("h_projects"), T("count")(SITE.projects.length)) + `<div class="register">${SITE.projects.map((p) => `
     <article class="proj">
-      <div class="yr">${esc(p.year)}</div>
+      <div class="yr">${icon(ICON_OF[p.id])}<span>${esc(p.year)}</span></div>
       <div>
         <h3><a class="stretch" href="#/p/${p.id}">${esc(p.title)}</a></h3>
         <div class="role">${esc(p.role)}</div>
@@ -1157,7 +1219,7 @@ function renderHome() {
 
   $("labWrap").innerHTML = secHead(T("h_lab"), T("note_lab")) + `<div class="lab-list">${SITE.lab.map((l, i) => `
     <article class="lab-item">
-      <div class="lab-ico" aria-hidden="true">${["\u25A6", "\u2220", "\u21C4"][i] || "\u25C7"}</div>
+      ${icon(ICON_OF[l.id])}
       <div>
         <h3><a class="stretch" href="#/lab/${l.id}">${esc(B(l, "title"))}</a></h3>
         <p>${esc(B(l, "text"))}</p>
@@ -1171,10 +1233,10 @@ function renderHome() {
     <div><h3>${esc(T("h_edu_col"))}</h3><ol class="timeline">${timeline(SITE.education)}</ol></div></div>`;
 
   $("commWrap").innerHTML = secHead(T("h_comm")) + `<ul class="comm">${SITE.community.map((c) => `
-    <li><div class="when">${esc(c.when)}</div><div><h3>${esc(B(c, "role"))}</h3><div class="where">${esc(B(c, "org"))}</div><p>${esc(B(c, "text"))}</p></div></li>`).join("")}</ul>`;
+    <li>${icon(c.icon)}<div><div class="when">${esc(c.when)}</div><h3>${esc(B(c, "role"))}</h3><div class="where">${esc(B(c, "org"))}</div><p>${esc(B(c, "text"))}</p></div></li>`).join("")}</ul>`;
 
   $("achWrap").innerHTML = secHead(T("h_ach")) + SITE.publications.map((pb, i) => `
-    <article class="pub">
+    <article class="pub">${icon("paper")}<div>
       <small>${esc(T("pub"))}</small>
       <h3>${pb.link ? ext(pb.link, pb.title) : esc(pb.title)}</h3>
       <p>${esc(pb.authors)}</p>
@@ -1184,13 +1246,13 @@ function renderHome() {
         <button class="linkbtn" type="button" data-cite="${i}" aria-expanded="false">${esc(T("cite"))}</button>
       </div>
       <div class="bib" id="bib${i}" hidden><pre>${esc(pb.bibtex)}</pre><button class="linkbtn" type="button" data-copy="${i}">${esc(T("copy"))}</button></div>
-    </article>`).join("") +
-    `<ul class="awards">${SITE.achievements.map((a) => `<li><div class="yr">${esc(a.year)}</div><div><b>${esc(a.title)}</b><span>${esc(a.detail)}</span></div></li>`).join("")}</ul>
+    </div></article>`).join("") +
+    `<ul class="awards">${SITE.achievements.map((a) => `<li>${icon(a.icon)}<div><em class="aw-yr">${esc(a.year)}</em><b>${esc(a.title)}</b><span>${esc(a.detail)}</span></div></li>`).join("")}</ul>
     <p class="refs"><b>${esc(T("refs"))}:</b> ${esc(B(SITE, "references"))}</p>`;
 
   $("notesWrap").innerHTML = secHead(T("h_notes"), T("note_notes")) + `<div class="notes-list">${SITE.notes.map((n) => `
     <article class="note-item">
-      <div class="note-meta">${esc(n.date)}<br>${esc(n.read)} ${esc(T("min_read"))}</div>
+      <div class="note-meta">${icon(ICON_OF[n.id])}<span>${esc(n.date)}<br>${esc(n.read)} ${esc(T("min_read"))}</span></div>
       <div><h3><a class="stretch" href="#/n/${n.id}">${esc(n.title)}</a></h3><p>${esc(n.summary)}</p><span class="more">${esc(T("read_note"))}</span></div>
     </article>`).join("")}</div>`;
 
@@ -1222,6 +1284,7 @@ function renderDetail(id) {
   $("detailInner").innerHTML = `
     <a class="back" href="#${d.back}">${esc(T("back"))}</a>${enNote()}
     <header class="d-head">
+      ${icon(ICON_OF[id], "big" + (d.done ? "" : " amber"))}
       <span class="d-status ${d.done ? "done" : ""}"><i aria-hidden="true"></i>${esc(d.status)}</span>
       <h1>${esc(d.title)}</h1>
       <p class="d-sum">${esc(d.summary)}</p>
@@ -1267,6 +1330,7 @@ function renderNote(id) {
   $("detailInner").innerHTML = `
     <a class="back" href="#notes">${esc(T("back_notes"))}</a>${enNote()}
     <article class="article">
+      ${icon(ICON_OF[id], "big")}
       <p class="note-meta-top">${esc(n.date)} \u00B7 ${esc(n.read)} read</p>
       <h1>${esc(n.title)}</h1>
       <p class="d-sum">${esc(n.summary)}</p>
@@ -1281,7 +1345,7 @@ function renderLab(id) {
   const l = LAB_BY_ID[id];
   $("detailInner").innerHTML = `
     <a class="back" href="#lab">${esc(T("back_lab"))}</a>${enNote()}
-    <header class="d-head"><span class="d-status done"><i aria-hidden="true"></i>Interactive tool</span>
+    <header class="d-head">${icon(ICON_OF[id], "big")}<span class="d-status done"><i aria-hidden="true"></i>Interactive tool</span>
       <h1>${esc(l.title)}</h1><p class="d-sum">${esc(l.intro)}</p></header>
     <div class="demo" data-demo="${l.id}"></div>
     <p class="article-from">From the project: <a href="#/p/${l.from}">${esc(titleOf(l.from))}</a></p>`;
@@ -1579,100 +1643,146 @@ themeBtn.addEventListener("click", () => { const t = root.getAttribute("data-the
 
 renderHome();
 route();
-/* ---------- Background: a living neural network ---------- */
+/* ---------- Background: a dynamic neural network ---------- */
 (function () {
   const cv = document.getElementById("bg"); if (!cv || !cv.getContext) return;
   const ctx = cv.getContext("2d");
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)");
-  let W = 0, H = 0, dpr = 1, nodes = [], edges = [], out = [], spikes = [], col = {};
-  let mouse = { x: -1e4, y: -1e4 }, raf = 0, last = performance.now(), lastSpont = 0, t0 = performance.now();
+  let W = 0, H = 0, dpr = 1, D = 120, nodes = [], adj = [], links = [], spikes = [], col = {};
+  let mouse = { x: -1e4, y: -1e4, on: false }, raf = 0, last = performance.now(), lastSpont = 0, lastScroll = scrollY;
 
   function readColors() {
     const cs = getComputedStyle(document.documentElement), g = (n, d) => (cs.getPropertyValue(n).trim() || d);
     col = { cyan: g("--cyan", "#7FD3FF"), line: g("--line", "#24405F"), muted: g("--muted", "#93A8C2") };
   }
   const rgba = (hex, a) => { const m = hex.match(/^#?([\da-f]{2})([\da-f]{2})([\da-f]{2})$/i); return m ? `rgba(${parseInt(m[1], 16)},${parseInt(m[2], 16)},${parseInt(m[3], 16)},${a})` : hex; };
-  // quieter behind the reading column, stronger at the edges
   const fadeAt = (x) => { const half = Math.min(560, W / 2), d = Math.abs(x - W / 2); return d < half - 80 ? 0.35 : d < half + 80 ? 0.35 + 0.65 * (d - half + 80) / 160 : 1; };
+  const bendOf = (i, j) => { const h = Math.sin((i < j ? i * 97 + j : j * 97 + i) * 12.9898) * 43758.5453; return ((h - Math.floor(h)) - 0.5) * 0.5; };
 
   function build() {
-    dpr = Math.min(window.devicePixelRatio || 1, 1.5); W = innerWidth; H = innerHeight;
+    dpr = Math.min(window.devicePixelRatio || 1, innerWidth > 1600 ? 1.25 : 1.5); W = innerWidth; H = innerHeight;
     cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); cv.style.width = W + "px"; cv.style.height = H + "px";
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-    // neurons scattered on a jittered grid so they spread evenly but look organic
-    const cell = W < 700 ? 92 : 78; nodes = [];
-    for (let y = -cell / 2; y < H + cell; y += cell) for (let x = -cell / 2; x < W + cell; x += cell) {
-      const nx = x + (Math.random() - 0.5) * cell * 0.9, ny = y + (Math.random() - 0.5) * cell * 0.9;
-      nodes.push({ bx: nx, by: ny, x: nx, y: ny, r: 1.4 + Math.random() * 1.8, p: Math.random() * 6.28, q: Math.random() * 6.28,
-        f: 0.15 + Math.random() * 0.25, glow: 0, rest: 0, fade: fadeAt(nx) });
+    const small = W < 700, count = Math.min(340, Math.round((W * H) / (small ? 5200 : 3700)));
+    D = small ? 130 : 120; nodes = []; spikes = [];
+    for (let k = 0; k < count; k++) {
+      const a = Math.random() * 6.283, sp = 8 + Math.random() * 14;
+      nodes.push({ x: Math.random() * W, y: Math.random() * H, vx: Math.cos(a) * sp, vy: Math.sin(a) * sp, cruise: sp,
+        r: 1.4 + Math.random() * 1.8, glow: 0, rest: 0 });
     }
-    // each neuron links to its nearest neighbours with gently curved axons
-    const seen = new Set(); edges = []; out = nodes.map(() => []);
-    nodes.forEach((a, i) => {
-      const near = nodes.map((b, j) => [j, (a.bx - b.bx) ** 2 + (a.by - b.by) ** 2]).filter(([j, d]) => j !== i && d < (cell * 1.9) ** 2)
-        .sort((u, v) => u[1] - v[1]).slice(0, 2 + ((Math.random() * 3) | 0));
-      near.forEach(([j]) => {
-        const key = i < j ? i + "-" + j : j + "-" + i; if (seen.has(key)) return; seen.add(key);
-        const e = { a: i, b: j, bend: (Math.random() - 0.5) * 0.5 }; edges.push(e);
-        out[i].push({ e, to: j, fwd: true }); out[j].push({ e, to: i, fwd: false });
-      });
-    });
-    spikes = [];
-  }
-  function ctrl(e) {
-    const A = nodes[e.a], B = nodes[e.b], mx = (A.x + B.x) / 2, my = (A.y + B.y) / 2;
-    return [mx - (B.y - A.y) * e.bend, my + (B.x - A.x) * e.bend];
-  }
-  function fire(i, now) {
-    const n = nodes[i]; if (now < n.rest) return;
-    n.glow = 1; n.rest = now + 1400;
-    for (const o of out[i]) if (spikes.length < 60 && Math.random() < 0.55) spikes.push({ o, from: i, s: 0, v: 0.9 + Math.random() * 0.8 });
   }
 
-  function frame(now) {
-    const dt = Math.min(0.05, (now - last) / 1000); last = now;
-    const t = (now - t0) / 1000, animate = !reduce.matches;
-    ctx.clearRect(0, 0, W, H);
+  function step(dt, now) {
+    const scrollKick = (scrollY - lastScroll) * 0.9; lastScroll = scrollY;
     for (const n of nodes) {
-      n.x = n.bx + (animate ? Math.sin(t * n.f + n.p) * 5 : 0);
-      n.y = n.by + (animate ? Math.cos(t * n.f * 1.2 + n.q) * 5 : 0);
+      // wander: small random turns keep paths organic
+      const turn = (Math.random() - 0.5) * 1.2 * dt, c = Math.cos(turn), s = Math.sin(turn);
+      [n.vx, n.vy] = [n.vx * c - n.vy * s, n.vx * s + n.vy * c];
+      // the cursor gently draws neurons in, like dendrites reaching toward a stimulus
+      if (mouse.on) { const dx = mouse.x - n.x, dy = mouse.y - n.y, d = Math.hypot(dx, dy); if (d < 180 && d > 30) { n.vx += dx / d * 30 * dt; n.vy += dy / d * 30 * dt; } }
+      // scrolling pushes the network like a current
+      n.vy -= scrollKick * 0.35;
+      // relax back to cruising speed
+      const v = Math.hypot(n.vx, n.vy) || 1, k = 1 + (n.cruise / v - 1) * Math.min(1, dt * 1.5);
+      n.vx *= k; n.vy *= k;
+      n.x += n.vx * dt; n.y += n.vy * dt;
+      const m = 40;
+      if (n.x < -m) n.x = W + m; else if (n.x > W + m) n.x = -m;
+      if (n.y < -m) n.y = H + m; else if (n.y > H + m) n.y = -m;
       n.glow *= Math.pow(0.12, dt);
-      if (animate && (n.x - mouse.x) ** 2 + (n.y - mouse.y) ** 2 < 6400) fire(nodes.indexOf(n), now);
+      n.fade = fadeAt(n.x);
     }
-    // axons
+    // connections form and break as neurons move: each links to its nearest few within reach
+    adj = nodes.map(() => []); links = [];
+    const D2 = D * D, seen = new Set(), grid = new Map(), key = (cx, cy) => cx * 4096 + cy;
+    nodes.forEach((n, i) => { const k = key(Math.floor(n.x / D) + 8, Math.floor(n.y / D) + 8); (grid.get(k) || grid.set(k, []).get(k)).push(i); });
+    for (let i = 0; i < nodes.length; i++) {
+      const a = nodes[i], cand = [], gx = Math.floor(a.x / D) + 8, gy = Math.floor(a.y / D) + 8;
+      for (let ox = -1; ox <= 1; ox++) for (let oy = -1; oy <= 1; oy++) {
+        const cell = grid.get(key(gx + ox, gy + oy)); if (!cell) continue;
+        for (const j of cell) if (j !== i) {
+          const dx = a.x - nodes[j].x, dy = a.y - nodes[j].y, d2 = dx * dx + dy * dy;
+          if (d2 < D2) cand.push([j, d2]);
+          if (d2 < 900 && d2 > 0.01) { const d = Math.sqrt(d2), push = (30 - d) * 1.6 * dt; a.vx += dx / d * push; a.vy += dy / d * push; }
+        }
+      }
+      cand.sort((u, w) => u[1] - w[1]);
+      for (const [j, d2] of cand.slice(0, 4)) {
+        const k2 = i < j ? i * 10000 + j : j * 10000 + i; if (seen.has(k2)) continue; seen.add(k2);
+        links.push({ i, j, s: 1 - Math.sqrt(d2) / D }); adj[i].push(j); adj[j].push(i);
+      }
+    }
+    if (mouse.on) nodes.forEach((n, i) => { if ((n.x - mouse.x) ** 2 + (n.y - mouse.y) ** 2 < 5600) fire(i, now); });
+    if (now - lastSpont > 160) { fire((Math.random() * nodes.length) | 0, now); lastSpont = now; }
+  }
+
+  function fire(i, now) {
+    const n = nodes[i]; if (!n || now < n.rest) return;
+    n.glow = 1; n.rest = now + 1300;
+    for (const j of adj[i] || []) if (spikes.length < 120 && Math.random() < 0.6) spikes.push({ a: i, b: j, s: 0, v: 150 + Math.random() * 110 });
+  }
+  const ctrl = (A, B, bend) => [(A.x + B.x) / 2 - (B.y - A.y) * bend, (A.y + B.y) / 2 + (B.x - A.x) * bend];
+
+  function draw(now, dt, animate) {
+    ctx.clearRect(0, 0, W, H);
     ctx.lineWidth = 1.1;
-    for (const e of edges) {
-      const A = nodes[e.a], B = nodes[e.b], [cx, cy] = ctrl(e), g = Math.max(A.glow, B.glow);
-      ctx.strokeStyle = rgba(g > 0.15 ? col.cyan : col.line, (g > 0.15 ? 0.25 + g * 0.4 : 0.95) * Math.min(A.fade, B.fade));
-      ctx.beginPath(); ctx.moveTo(A.x, A.y); ctx.quadraticCurveTo(cx, cy, B.x, B.y); ctx.stroke();
+    const buckets = [[], [], [], []], hot = [];
+    for (const L of links) {
+      const A = nodes[L.i], B = nodes[L.j], g = Math.max(A.glow, B.glow);
+      if (g > 0.15) hot.push(L); else buckets[Math.min(3, Math.floor(L.s * Math.min(A.fade, B.fade) * 4))].push(L);
     }
-    // spikes travelling along axons, firing the next neuron when they arrive
-    if (animate) {
-      if (now - lastSpont > 260) { fire((Math.random() * nodes.length) | 0, now); lastSpont = now; }
-      spikes = spikes.filter((sp) => {
-        const e = sp.o.e, A = nodes[e.a], B = nodes[e.b], len = Math.hypot(B.x - A.x, B.y - A.y) || 1;
-        sp.s += (sp.v * 160 / len) * dt;
-        if (sp.s >= 1) { if (Math.random() < 0.7) fire(sp.o.to, now); else nodes[sp.o.to].glow = Math.max(nodes[sp.o.to].glow, 0.5); return false; }
-        const u = sp.o.fwd ? sp.s : 1 - sp.s, [cx, cy] = ctrl(e), iu = 1 - u;
-        const x = iu * iu * A.x + 2 * iu * u * cx + u * u * B.x, y = iu * iu * A.y + 2 * iu * u * cy + u * u * B.y, fa = Math.min(A.fade, B.fade);
-        ctx.fillStyle = rgba(col.cyan, 0.18 * fa); ctx.beginPath(); ctx.arc(x, y, 5, 0, 6.283); ctx.fill();
-        ctx.fillStyle = rgba(col.cyan, 0.9 * fa); ctx.beginPath(); ctx.arc(x, y, 1.8, 0, 6.283); ctx.fill();
-        return true;
-      });
+    const curve = (L) => { const A = nodes[L.i], B = nodes[L.j], [cx, cy] = ctrl(A, B, bendOf(L.i, L.j)); ctx.moveTo(A.x, A.y); ctx.quadraticCurveTo(cx, cy, B.x, B.y); };
+    buckets.forEach((bk, q) => { if (!bk.length) return; ctx.strokeStyle = rgba(col.line, Math.min(1, (q + 0.6) / 4 * 1.7)); ctx.beginPath(); bk.forEach(curve); ctx.stroke(); });
+    for (const L of hot) {
+      const A = nodes[L.i], B = nodes[L.j], g = Math.max(A.glow, B.glow);
+      ctx.strokeStyle = rgba(col.cyan, Math.min(1, 0.2 + g * 0.45) * L.s * Math.min(A.fade, B.fade)); ctx.beginPath(); curve(L); ctx.stroke();
     }
-    // neurons
+    if (animate) spikes = spikes.filter((sp) => {
+      const A = nodes[sp.a], B = nodes[sp.b], len = Math.hypot(B.x - A.x, B.y - A.y);
+      if (len > D * 1.15) return false; // the connection broke: the signal is lost
+      sp.s += (sp.v / (len || 1)) * dt;
+      if (sp.s >= 1) { if (Math.random() < 0.7) fire(sp.b, now); else B.glow = Math.max(B.glow, 0.5); return false; }
+      const u = sp.s, iu = 1 - u, [cx, cy] = ctrl(A, B, bendOf(sp.a, sp.b)) , fa = Math.min(A.fade, B.fade);
+      const x = iu * iu * A.x + 2 * iu * u * cx + u * u * B.x, y = iu * iu * A.y + 2 * iu * u * cy + u * u * B.y;
+      ctx.fillStyle = rgba(col.cyan, 0.2 * fa); ctx.beginPath(); ctx.arc(x, y, 5, 0, 6.283); ctx.fill();
+      ctx.fillStyle = rgba(col.cyan, 0.95 * fa); ctx.beginPath(); ctx.arc(x, y, 1.8, 0, 6.283); ctx.fill();
+      return true;
+    });
+    const nb = [[], [], []];
     for (const n of nodes) {
-      if (n.glow > 0.04) { ctx.fillStyle = rgba(col.cyan, n.glow * 0.3 * n.fade); ctx.beginPath(); ctx.arc(n.x, n.y, n.r + 9 * n.glow, 0, 6.283); ctx.fill(); }
-      ctx.fillStyle = rgba(n.glow > 0.2 ? col.cyan : col.muted, (0.5 + n.glow * 0.5) * n.fade);
-      ctx.beginPath(); ctx.arc(n.x, n.y, n.r + n.glow * 1.2, 0, 6.283); ctx.fill();
+      if (n.glow > 0.04) {
+        ctx.fillStyle = rgba(col.cyan, n.glow * 0.3 * n.fade); ctx.beginPath(); ctx.arc(n.x, n.y, n.r + 9 * n.glow, 0, 6.283); ctx.fill();
+        ctx.fillStyle = rgba(n.glow > 0.2 ? col.cyan : col.muted, (0.5 + n.glow * 0.5) * n.fade); ctx.beginPath(); ctx.arc(n.x, n.y, n.r + n.glow * 1.2, 0, 6.283); ctx.fill();
+      } else nb[n.fade < 0.5 ? 0 : n.fade < 0.9 ? 1 : 2].push(n);
     }
+    [0.2, 0.36, 0.5].forEach((a, q) => { if (!nb[q].length) return; ctx.fillStyle = rgba(col.muted, a); ctx.beginPath(); nb[q].forEach((n) => { ctx.moveTo(n.x + n.r, n.y); ctx.arc(n.x, n.y, n.r, 0, 6.283); }); ctx.fill(); });
+  }
+
+  let perfN = 0, perfSum = 0;
+  function adapt(rawDt) {
+    // on slower devices, thin the network until it runs smoothly
+    perfN++; perfSum += rawDt;
+    if (perfN >= 90) {
+      if (perfSum / perfN > 0.026 && nodes.length > 110) {
+        nodes.length = Math.floor(nodes.length * 0.82);
+        spikes = spikes.filter((sp) => sp.a < nodes.length && sp.b < nodes.length);
+      }
+      perfN = 0; perfSum = 0;
+    }
+  }
+  function frame(now) {
+    const raw = (now - last) / 1000, dt = Math.min(0.05, raw); last = now;
+    const animate = !reduce.matches;
+    if (animate && raw < 0.5) adapt(raw);
+    if (animate) step(dt, now); else if (!links.length) step(0, now);
+    draw(now, dt, animate);
     raf = animate && !document.hidden ? requestAnimationFrame(frame) : 0;
   }
   const start = () => { if (!raf) { last = performance.now(); raf = requestAnimationFrame(frame); } };
   readColors(); build(); start();
-  let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => { build(); if (reduce.matches) frame(performance.now()); }, 150); });
-  addEventListener("pointermove", (e) => { mouse.x = e.clientX; mouse.y = e.clientY; }, { passive: true });
-  document.addEventListener("pointerleave", () => { mouse.x = mouse.y = -1e4; });
+  let rt; addEventListener("resize", () => { clearTimeout(rt); rt = setTimeout(() => { build(); links = []; if (reduce.matches) frame(performance.now()); }, 150); });
+  addEventListener("pointermove", (e) => { mouse.x = e.clientX; mouse.y = e.clientY; mouse.on = e.pointerType === "mouse"; }, { passive: true });
+  document.addEventListener("pointerleave", () => { mouse.on = false; });
   document.addEventListener("visibilitychange", () => { if (!document.hidden) start(); });
   new MutationObserver(() => { readColors(); if (!raf) frame(performance.now()); }).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
   const mq = matchMedia("(prefers-color-scheme: dark)"); (mq.addEventListener ? mq.addEventListener("change", readColors) : mq.addListener(readColors));
