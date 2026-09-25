@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Md Sadat Tanzim, Mechanical Engineering, BUET</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%226%22%20fill%3D%22%230D1B2E%22/%3E%3Cpath%20d%3D%22M8.2%208.2L23.8%2023.8M23.8%208.2L8.2%2023.8%22%20stroke%3D%22%237FD3FF%22%20stroke-width%3D%222.2%22%20stroke-linecap%3D%22round%22/%3E%3Cg%20fill%3D%22%230D1B2E%22%20stroke%3D%22%237FD3FF%22%20stroke-width%3D%222%22%3E%3Ccircle%20cx%3D%227.6%22%20cy%3D%227.6%22%20r%3D%224.2%22/%3E%3Ccircle%20cx%3D%2224.4%22%20cy%3D%227.6%22%20r%3D%224.2%22/%3E%3Ccircle%20cx%3D%227.6%22%20cy%3D%2224.4%22%20r%3D%224.2%22/%3E%3Ccircle%20cx%3D%2224.4%22%20cy%3D%2224.4%22%20r%3D%224.2%22/%3E%3C/g%3E%3Crect%20x%3D%2213.3%22%20y%3D%2213.3%22%20width%3D%225.4%22%20height%3D%225.4%22%20transform%3D%22rotate%2845%2016%2016%29%22%20fill%3D%22%23FFB547%22/%3E%3C/svg%3E">
 <link rel="canonical" href="https://sadat-tanzim.github.io/">
 <meta name="description" content="Md Sadat Tanzim, mechanical engineering student at BUET: robotics, autonomous navigation, CanSat design and atomistic simulation.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -461,13 +462,29 @@
     body { background: #fff; color: #000; }
     section.block { break-inside: avoid; }
   }
+
+  /* Logo mark: drone from above = bonded atoms = connected neurons */
+  .mark { border: 0 !important; padding: 0 !important; display: inline-flex; align-items: center; line-height: 0; }
+  .mark svg { display: block; }
+  .mk-orbit { fill: none; stroke: var(--line); stroke-width: 1.2; stroke-dasharray: 2.2 2.2; }
+  .mk-arm { stroke: var(--cyan); stroke-width: 2; stroke-linecap: round; }
+  .mk-node { fill: var(--bg); stroke: var(--cyan); stroke-width: 1.8; }
+  .mk-core { fill: var(--amber); }
+  .mark:hover .mk-orbit { stroke: var(--cyan); }
+  .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 </style>
 </head>
 <body>
 
 <header class="top">
   <div class="wrap">
-    <a class="mark" href="#top" id="mark">ST</a>
+    <a class="mark" href="#top" id="mark" title="A drone seen from above, an atom lattice and a neural network in one"><svg viewBox="0 0 32 32" width="34" height="34" aria-hidden="true" focusable="false">
+        <circle cx="16" cy="16" r="10.2" class="mk-orbit"/>
+        <path d="M8.2 8.2 L23.8 23.8 M23.8 8.2 L8.2 23.8" class="mk-arm"/>
+        <circle cx="7.4" cy="7.4" r="4.4" class="mk-node"/><circle cx="24.6" cy="7.4" r="4.4" class="mk-node"/>
+        <circle cx="7.4" cy="24.6" r="4.4" class="mk-node"/><circle cx="24.6" cy="24.6" r="4.4" class="mk-node"/>
+        <rect x="13.4" y="13.4" width="5.2" height="5.2" transform="rotate(45 16 16)" class="mk-core"/>
+      </svg><span class="sr-only">Md Sadat Tanzim, home</span></a>
     <nav class="links" id="navLinks" aria-label="Sections"></nav>
     <button class="lang-btn" id="langBtn" type="button">বাংলা</button>
     <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch to light theme">☀</button>
@@ -1089,7 +1106,6 @@ function renderHome() {
   $("langBtn").textContent = T("lang_btn");
   $("langBtn").setAttribute("lang", LANG === "en" ? "bn" : "en");
 
-  $("mark").textContent = SITE.initials;
   $("heroName").textContent = SITE.name;
   $("dimText").textContent = B(SITE, "dimLabel");
   $("heroTagline").innerHTML = `<strong>${esc(B(SITE, "lead"))}</strong> ${esc(B(SITE, "tagline"))}`;
