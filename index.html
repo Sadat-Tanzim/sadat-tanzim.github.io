@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Md Sadat Tanzim, Mechanical Engineering, BUET</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%226%22%20fill%3D%22%230D1B2E%22/%3E%3Cpath%20d%3D%22M8.2%208.2L23.8%2023.8M23.8%208.2L8.2%2023.8%22%20stroke%3D%22%237FD3FF%22%20stroke-width%3D%222.2%22%20stroke-linecap%3D%22round%22/%3E%3Cg%20fill%3D%22%230D1B2E%22%20stroke%3D%22%237FD3FF%22%20stroke-width%3D%222%22%3E%3Ccircle%20cx%3D%227.6%22%20cy%3D%227.6%22%20r%3D%224.2%22/%3E%3Ccircle%20cx%3D%2224.4%22%20cy%3D%227.6%22%20r%3D%224.2%22/%3E%3Ccircle%20cx%3D%227.6%22%20cy%3D%2224.4%22%20r%3D%224.2%22/%3E%3Ccircle%20cx%3D%2224.4%22%20cy%3D%2224.4%22%20r%3D%224.2%22/%3E%3C/g%3E%3Crect%20x%3D%2213.3%22%20y%3D%2213.3%22%20width%3D%225.4%22%20height%3D%225.4%22%20transform%3D%22rotate%2845%2016%2016%29%22%20fill%3D%22%23FFB547%22/%3E%3C/svg%3E">
-<link rel="preload" as="image" href="assets/img-e54391ef0f.webp">
+<link rel="preload" as="image" href="assets/hero-beach.webp">
+<link rel="preload" href="assets/fonts/caveat-600.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="canonical" href="https://sadat-tanzim.github.io/">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Md Sadat Tanzim">
@@ -4727,10 +4728,194 @@ footer.foot h3 {
 .exp-art.photo img[src*="exp-workshop"] { object-position: 60% 62%; }
 
 .exp-art.photo img[src*="exp-ictjamboree"] { object-position: 45% 45%; }
+
+/* Education cards link to each institution's website */
+.edu-card { position: relative; transition: border-color .18s var(--ease); }
+.edu-card:has(.edu-link):hover { border-color: var(--line-strong); }
+.edu-link { color: inherit; text-decoration: none; }
+.edu-link::after { content: ""; position: absolute; inset: 0; border-radius: inherit; }
+.edu-link:hover, .edu-link:focus-visible { text-decoration: underline; text-underline-offset: 4px; }
+.edu-link .ext { width: 0.7em; height: 0.7em; margin-left: 0.35em; vertical-align: 0.05em; fill: none; stroke: currentColor; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; opacity: 0.6; }
+.edu-link:hover .ext { opacity: 1; }
+
+.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+@media (max-width: 760px) { .edu-card { grid-template-columns: 1fr; gap: 8px; } .edu-card .edu-ico { display: none; } .edu-card .when { order: -1; } }
+
+/* =================== Personal layer: beach hero, handwritten hello, numbered results =================== */
+@font-face { font-family: "Caveat"; src: url("assets/fonts/caveat-600.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+:root { --hand: "Caveat", "Segoe Print", "Bradley Hand", cursive; --warm: #F0A35E; }
+:root[data-theme="light"] { --warm: #B4621F; }
+
+/* Hero over the photo: always light-on-dark so the text stays readable */
+section.hero-photo-bg { position: relative; overflow: hidden; isolation: isolate;
+  --text: #F6F1E8; --text-2: #D9D2C6; --muted: #B6AEA2; --line: rgba(246,241,232,0.16); --line-strong: rgba(246,241,232,0.32); color: var(--text); }
+.hero-bg { position: absolute; inset: 0; z-index: -1; }
+.hero-bg img { width: 100%; height: 100%; object-fit: cover; object-position: 72% 55%; display: block; filter: saturate(0.9); }
+.hero-bg::after { content: ""; position: absolute; inset: 0;
+  background: linear-gradient(90deg, rgba(10,9,8,0.82) 0%, rgba(10,9,8,0.55) 38%, rgba(10,9,8,0.08) 68%),
+              linear-gradient(180deg, rgba(10,9,8,0.45) 0%, transparent 22%, transparent 70%, var(--bg) 100%); }
+section.hero-photo-bg .hero-photo { display: none; }
+section.hero-photo-bg .hero-grid { grid-template-columns: minmax(0, 1fr); max-width: 760px; margin-left: max(0px, calc((100% - 1240px) / 2)); }
+section.hero-photo-bg .eyebrow { color: var(--warm); }
+.hello .hi-hand { display: block; font-family: var(--hand); font-weight: 600; text-transform: none; letter-spacing: 0; font-size: clamp(1.9rem, 3vw, 2.6rem); line-height: 1; color: var(--text); margin-bottom: 6px; }
+.hello .hand { display: block; font-family: var(--hand); font-weight: 600; text-transform: none; letter-spacing: 0; font-size: clamp(5rem, 11vw, 9.5rem); line-height: 0.9; color: var(--text); }
+.hello .sub-role { font-family: var(--mono); font-size: 13px !important; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-2); margin-top: 18px !important; }
+section.hero-photo-bg .lede { font-family: var(--hand); font-weight: 600; font-size: clamp(1.6rem, 2.4vw, 2.1rem); line-height: 1.3; color: var(--text); max-width: 40rem; }
+section.hero-photo-bg .pill.primary { background: var(--text); color: #14110F; border-color: var(--text); }
+section.hero-photo-bg .pill { border-color: var(--text); color: var(--text); }
+section.hero-photo-bg .hero-stats dt { color: var(--text); }
+section.hero-photo-bg .scroll-cue { color: var(--text-2); }
+@media (max-width: 760px) {
+  .hero-bg img { object-position: 78% 50%; }
+  .hero-bg::after { background: linear-gradient(180deg, rgba(10,9,8,0.55) 0%, rgba(10,9,8,0.35) 40%, rgba(10,9,8,0.7) 80%, var(--bg) 100%); }
+}
+
+/* About: two-sided identity */
+.by-pair { display: flex; flex-wrap: wrap; gap: 8px 48px; margin: 8px 0 28px; }
+.by { margin: 0; display: flex; flex-direction: column; }
+.by .hand { font-family: var(--hand); font-weight: 600; font-size: clamp(2.6rem, 4.6vw, 3.8rem); line-height: 1; color: var(--text); }
+.by em { font-family: var(--hand); font-weight: 600; font-style: normal; font-size: 1.5rem; line-height: 1; color: var(--warm); margin-left: 1.6em; }
+
+/* Projects: number and one standout result */
+.pm { display: flex; align-items: baseline; gap: 10px; margin: 10px 0 4px; }
+.pm b { font-family: var(--display); font-size: clamp(1.8rem, 2.6vw, 2.4rem); line-height: 1; font-weight: 600; color: var(--warm); font-variant-numeric: tabular-nums; }
+.pm span { font-size: 13px; color: var(--text-2); }
+
+/* =================== Motion layer (inspired by jaspreetsingh.xyz) =================== */
+:root { --m-ease: cubic-bezier(0.16, 1, 0.3, 1); --m-in: 0.9s; }
+
+/* Loader: handwritten name, a line that draws, a small percentage */
+#ld { position: fixed; inset: 0; z-index: 200; background: #0b0a09; display: grid; place-items: center; animation: ldFailsafe .5s ease 3.2s forwards; }
+#ld .ld-box { width: min(360px, 76vw); }
+#ld .ld-name { font-family: var(--hand); font-weight: 600; font-size: clamp(3.4rem, 9vw, 5rem); color: #F6F1E8; line-height: 1; opacity: 0; transform: translateY(14px); animation: ldIn .9s var(--m-ease) .1s forwards; }
+#ld .ld-row { display: flex; align-items: center; gap: 14px; margin-top: 14px; }
+#ld .ld-line { flex: 1; height: 1px; background: rgba(246,241,232,0.14); position: relative; overflow: hidden; }
+#ld .ld-line i { position: absolute; inset: 0; background: #F6F1E8; transform-origin: 0 50%; transform: scaleX(0); }
+#ld .ld-pct { font-family: var(--mono); font-size: 11px; letter-spacing: .08em; color: rgba(246,241,232,0.6); font-variant-numeric: tabular-nums; min-width: 3.5em; text-align: right; }
+#ld.out { opacity: 0; visibility: hidden; transition: opacity .6s ease, visibility 0s .6s; }
+@keyframes ldIn { to { opacity: 1; transform: none; } }
+@keyframes ldFailsafe { to { opacity: 0; visibility: hidden; } }
+html.ld-skip #ld { display: none; }
+
+/* Hero entrance after the loader */
+.hero-photo-bg .hi-hand, .hero-photo-bg .hand, .hero-photo-bg .sub-role, .hero-photo-bg .lede, .hero-photo-bg .cta, .hero-photo-bg .hero-stats, .hero-photo-bg .eyebrow {
+  transition: opacity var(--m-in) var(--m-ease), transform var(--m-in) var(--m-ease), filter var(--m-in) var(--m-ease); }
+html.m-on:not(.loaded) .hero-photo-bg :is(.hi-hand, .hand, .sub-role, .lede, .cta, .hero-stats, .eyebrow) { opacity: 0; transform: translateY(22px); filter: blur(6px); }
+html.loaded .hero-photo-bg .eyebrow { transition-delay: .05s; }
+html.loaded .hero-photo-bg .hi-hand { transition-delay: .12s; }
+html.loaded .hero-photo-bg .hand { transition-delay: .2s; }
+html.loaded .hero-photo-bg .sub-role { transition-delay: .32s; }
+html.loaded .hero-photo-bg .lede { transition-delay: .42s; }
+html.loaded .hero-photo-bg .cta { transition-delay: .54s; }
+html.loaded .hero-photo-bg .hero-stats { transition-delay: .66s; }
+.hero-bg img { transform-origin: 70% 60%; will-change: transform; }
+html.m-on:not(.loaded) .hero-bg img { transform: scale(1.08); }
+.hero-bg img { transition: transform 2.2s var(--m-ease); }
+
+/* Section titles: handwritten with a small warm aside */
+.h-head h2 { font-family: var(--hand) !important; font-weight: 600 !important; text-transform: none !important; letter-spacing: 0 !important; font-size: clamp(3rem, 6vw, 5rem) !important; line-height: 1 !important; }
+.h-head h2 .by-sub { display: inline-block; font-size: 0.42em; color: var(--warm); margin-left: 0.5em; transform: translateY(-0.1em) rotate(-2deg); }
+.about-text2 .h-about { font-family: var(--hand) !important; font-weight: 600 !important; text-transform: none !important; letter-spacing: 0 !important; font-size: clamp(3rem, 6vw, 5rem) !important; line-height: 1 !important; }
+.contact-card h2 { font-family: var(--hand) !important; font-weight: 600 !important; text-transform: none !important; letter-spacing: 0 !important; }
+#detail .d-head h1 { font-family: var(--hand) !important; font-weight: 600 !important; text-transform: none !important; letter-spacing: 0 !important; font-size: clamp(2.8rem, 6vw, 4.8rem) !important; line-height: 1.02 !important; }
+#detail .d-sec h2 { font-family: var(--hand) !important; font-weight: 600 !important; text-transform: none !important; letter-spacing: 0 !important; font-size: 2rem !important; line-height: 1.1 !important; color: var(--text); }
+
+/* Words rise into place */
+.mw { display: inline-block; overflow: hidden; vertical-align: top; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+.mw > span { display: inline-block; transition: transform var(--m-in) var(--m-ease), opacity .5s ease; transition-delay: calc(var(--i, 0) * 45ms); }
+html.m-on [data-mr]:not(.is-in) .mw > span { transform: translateY(105%); opacity: 0; }
+
+/* Rules draw from the left */
+.h-head { border-top: 0 !important; position: relative; }
+.h-head::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px; background: var(--line-strong); transform-origin: 0 50%; transition: transform 1.3s var(--m-ease); }
+html.m-on .h-head:not(.is-in)::before { transform: scaleX(0); }
+.d-sec { border-top: 0 !important; position: relative; }
+.d-sec::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 1px; background: var(--line); transform-origin: 0 50%; transition: transform 1.2s var(--m-ease); }
+html.m-on .d-sec:not(.is-in)::before { transform: scaleX(0); }
+
+/* Blocks lift in (reuses the site's reveal hook) */
+html.js-reveal .reveal { transform: translateY(30px); opacity: 0; transition: opacity .7s ease-out, transform var(--m-in) var(--m-ease); transition-delay: var(--d, 0ms); }
+html.js-reveal .reveal.in { transform: none; opacity: 1; }
+
+/* Underlines sweep in on hover */
+nav.links a, .readmore, .linkbtn, .edu-link, .contact-links a span, .contact-links button span, footer.foot a {
+  background-image: linear-gradient(currentColor, currentColor); background-size: 0% 1px; background-position: 0 100%; background-repeat: no-repeat; text-decoration: none !important;
+  transition: background-size .45s var(--m-ease), color .2s; }
+nav.links a:hover, .readmore:hover, .linkbtn:hover, .edu-link:hover, .contact-links a:hover span, .contact-links button:hover span, footer.foot a:hover, nav.links a.is-current { background-size: 100% 1px; }
+nav.links a.is-current { color: var(--text) !important; }
+
+/* Cards: gentle lift on hover */
+.proj-card, .inv-card, .exp-card, .act-card, .award-card, .edu-card, .pub-card { transition: transform .5s var(--m-ease), border-color .3s ease, opacity .7s ease-out; }
+@media (hover: hover) {
+  .proj-card:hover, .inv-card:hover, .act-card:hover, .award-card:hover, .pub-card:hover { transform: translateY(-4px); }
+  .inv-card:hover .inv-img img, .exp-card:hover .exp-art img { transform: scale(1.04); }
+  .inv-img img, .exp-art img { transition: transform 1.2s var(--m-ease); }
+}
+
+/* Page fade between home and project pages */
+html.pt-leave main { opacity: 0; transform: translateY(-8px); transition: opacity .22s ease, transform .22s ease; }
+html.pt-arrive main:not([hidden]) { animation: ptIn .7s var(--m-ease) both; }
+@keyframes ptIn { from { opacity: 0; transform: translateY(14px); } }
+
+@media (prefers-reduced-motion: reduce) {
+  #ld { display: none; }
+  html.m-on [data-mr]:not(.is-in) .mw > span { transform: none; opacity: 1; }
+  html.m-on .h-head:not(.is-in)::before, html.m-on .d-sec:not(.is-in)::before { transform: none; }
+  html.m-on:not(.loaded) .hero-photo-bg :is(.hi-hand, .hand, .sub-role, .lede, .cta, .hero-stats, .eyebrow) { opacity: 1; transform: none; filter: none; }
+  html.pt-leave main, html.pt-arrive main { animation: none; transition: none; opacity: 1; transform: none; }
+}
+
+/* =================== One theme + scroll-driven sky: beach, dusk, night =================== */
+#themeBtn { display: none !important; }
+#bg { display: none !important; }              /* stars replace the neural network */
+html { background: #07080c; }
+body { background: transparent !important; background-image: none !important; }
+
+#scene { position: fixed; inset: 0; z-index: -1; overflow: hidden; background: #07080c; pointer-events: none; --pan: 0; --night: 0; --stars: 0; --veil: 0; }
+#scene .sc-pan { position: absolute; left: 0; right: 0; top: calc(var(--sh, 100vh) * -1); height: calc(var(--sh, 100vh) * 2); transform: translate3d(0, calc(var(--pan) * var(--sh, 100vh)), 0); will-change: transform; }
+#scene .sc-sky { position: absolute; left: 0; right: 0; top: 0; height: 50%;
+  background: linear-gradient(180deg, #14161d 0%, #2a2a2f 30%, #55514a 62%, #847d6a 100%); }
+#scene .sc-photo { position: absolute; left: 0; right: 0; bottom: 0; height: 50%; }
+#scene .sc-photo img { width: 100%; height: 100%; object-fit: cover; object-position: 72% 55%; display: block;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 16%); mask-image: linear-gradient(180deg, transparent 0%, #000 16%);
+  transform-origin: 70% 60%; transition: transform 2.2s var(--m-ease, ease); }
+html.m-on:not(.loaded) #scene .sc-photo img { transform: scale(1.08); }
+#scene .sc-photo::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 30%; background: linear-gradient(180deg, #847d6a, rgba(132,125,106,0)); z-index: 1; }
+#scene .sc-night { position: absolute; inset: 0; opacity: var(--night);
+  background: radial-gradient(120% 80% at 70% 110%, #0e1830 0%, rgba(14,24,48,0) 60%), linear-gradient(180deg, #02030a 0%, #050916 55%, #0a1226 100%); }
+#scene #stars { position: absolute; inset: 0; width: 100%; height: 100%; opacity: var(--stars); }
+#scene .sc-veil { position: absolute; inset: 0; background: #08090c; opacity: var(--veil); }
+
+/* The hero no longer carries its own photo; keep only its left-side shade for the text */
+.hero-bg img, .hero-bg picture { display: none !important; }
+.hero-bg { transform: none !important; }
+.hero-bg::after { background: linear-gradient(90deg, rgba(10,9,8,0.78) 0%, rgba(10,9,8,0.5) 38%, rgba(10,9,8,0.05) 68%), linear-gradient(180deg, rgba(10,9,8,0.4) 0%, transparent 25%) !important; }
+@media (max-width: 760px) {
+  .hero-bg::after { background: linear-gradient(180deg, rgba(10,9,8,0.55) 0%, rgba(10,9,8,0.3) 45%, rgba(10,9,8,0.55) 100%) !important; }
+  #scene .sc-photo img { object-position: 78% 50%; }
+}
+/* Header sits on the sky instead of a solid block */
+header.top, :root[data-theme] header.top, header.top.scrolled, :root[data-theme] header.top.scrolled { background: rgba(7,8,12,0.35) !important; }
+@media (prefers-reduced-motion: reduce) { #scene .sc-pan { transition: none; } }
+
+footer.foot { background: transparent !important; border-top: 1px solid rgba(246,241,232,0.12) !important; }
+
+/* See-through blocks: content floats on the sky, separated only by faint outlines */
+:root, :root[data-theme="dark"], :root[data-theme="light"] { --surface: transparent; --raised: rgba(246,241,232,0.06); }
+.card, .glance, .edu-card, .inv-card, .exp-card, .pub-card, .act-card, .award-card, .proj-card, .feat-card, .contact-card, .skill-card,
+#detail .sheet, .d-stats, .d-meta, .viewer3d, .compare, .video-card, .bib pre, .tool-card, .note-card {
+  background: transparent !important; background-color: transparent !important; box-shadow: none !important; border-color: rgba(246,241,232,0.14) !important; }
+.inv-txt, .pc-body, .feat-body, .edu-body, .exp-card > div:first-child { background: transparent !important; }
+.exp-art, .inv-img { background: transparent !important; }
+@media (max-width: 1200px) { nav.links { background: rgba(7,8,12,0.72) !important; backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); } }
+#toTop { background: transparent !important; }
+
+.hero-bg { -webkit-mask-image: linear-gradient(180deg, #000 72%, transparent 100%); mask-image: linear-gradient(180deg, #000 72%, transparent 100%); }
 </style>
 </head>
 <body>
-<canvas id="bg" aria-hidden="true"></canvas>
+<div id="scene" aria-hidden="true"><div class="sc-pan"><div class="sc-sky"></div><div class="sc-photo"><picture><source media="(max-width: 760px)" srcset="assets/hero-beach-sm.webp"><img src="assets/hero-beach.webp" alt="" width="2048" height="1534" fetchpriority="high"></picture></div></div><div class="sc-veil"></div><div class="sc-night"></div><canvas id="stars"></canvas></div>
+<div id="ld" aria-hidden="true"><div class="ld-box"><div class="ld-name">Rumi</div><div class="ld-row"><div class="ld-line"><i></i></div><span class="ld-pct">0%</span></div></div></div>
 <div id="progress" aria-hidden="true"></div>
 <header class="top" id="siteHeader">
   <div class="wrap">
@@ -4751,45 +4936,44 @@ footer.foot h3 {
 </header>
 
 <main id="top">
-  <section class="hero2" aria-label="Introduction">
+  <section class="hero2 hero-photo-bg" aria-label="Introduction">
+    <div class="hero-bg" aria-hidden="true"></div>
     <div class="wrap hero-grid">
       <div>
         <p class="eyebrow">Robotics · Atomistic simulation · Embedded systems</p>
-        <h1 class="hello"><span class="hl">Md Sadat Tanzim</span><span class="sub-role">Mechanical engineering student at BUET</span></h1>
+        <h1 class="hello" aria-label="Hello, I'm Rumi, Md Sadat Tanzim"><span class="hi-hand" aria-hidden="true">Hello, I&rsquo;m</span><span class="hl hand" aria-hidden="true">Rumi</span><span class="sub-role">Md Sadat Tanzim &middot; Mechanical engineering, BUET</span></h1>
         <p class="lede" id="heroLede"></p>
         <div class="cta" id="heroCta"></div>
       </div>
       <div class="hero-photo photo-slot" id="slotHero"><img data-photo alt="Portrait of Md Sadat Tanzim" width="560" height="700"><span class="fig-label" aria-hidden="true">Dhaka, 2026</span></div>
     </div>
-    <div class="wrap"><dl class="hero-stats" id="heroStats"></dl></div>
-    <a class="scroll-cue" href="#about">Scroll</a>
   </section>
 
   <section class="sec" id="about"><div class="wrap">
     <div class="about2">
       <div class="about-slot photo-slot" id="slotAbout"><img data-photo alt="" width="560" height="700" loading="lazy"></div>
-      <div class="about-text2"><p class="eyebrow secno" aria-hidden="true"></p><h2 class="h-about">About me</h2><div id="aboutBody"></div></div>
+      <div class="about-text2"><h2 class="h-about">About me</h2><div class="by-pair"><p class="by"><span class="hand">Engineer</span><em>by degree</em></p><p class="by"><span class="hand">Roboticist</span><em>by obsession</em></p></div><div id="aboutBody"></div></div>
     </div>
     <aside class="card glance glance-row" aria-label="At a glance"><h3>At a glance</h3><dl id="glance"></dl></aside>
   </div></section>
 
   <section class="sec" id="skills"><div class="wrap">
-    <div class="h-head"><p class="eyebrow secno" aria-hidden="true"></p><h2>Skills</h2></div>
+    <div class="h-head"><h2>Skills</h2></div>
     <div class="skill-grid" id="skillGrid"></div>
   </div></section>
 
   <section class="sec" id="education"><div class="wrap">
-    <div class="h-head"><p class="eyebrow secno" aria-hidden="true"></p><h2>Education</h2></div>
+    <div class="h-head"><h2>Education</h2></div>
     <ol class="edu-list" id="eduList"></ol>
   </div></section>
 
   <section class="sec" id="activities"><div class="wrap">
-    <div class="h-head"><p class="eyebrow secno" aria-hidden="true"></p><h2>Leadership &amp; Activities</h2></div>
+    <div class="h-head"><h2>Leadership &amp; Activities</h2></div>
     <div class="act-grid" id="actGrid"></div>
   </div></section>
 
   <section class="sec" id="projects"><div class="wrap">
-    <div class="h-head"><p class="eyebrow secno" aria-hidden="true"></p><h2>Projects</h2></div>
+    <div class="h-head"><h2>Projects</h2></div>
     <h3 class="sub-head" id="now">Currently working on</h3>
     <div class="proj-grid" id="nowGrid2"></div>
     <h3 class="sub-head" style="margin-top:56px">Completed</h3>
@@ -4798,39 +4982,31 @@ footer.foot h3 {
   </div></section>
 
   <section class="sec" id="publications"><div class="wrap">
-    <div class="h-head"><p class="eyebrow secno" aria-hidden="true"></p><h2>Publications</h2></div>
+    <div class="h-head"><h2>Publications</h2></div>
     <div id="pubList"></div>
   </div></section>
 
   <section class="sec" id="experience"><div class="wrap">
-    <div class="h-head"><p class="eyebrow secno" aria-hidden="true"></p><h2>Experience</h2></div>
+    <div class="h-head"><h2>Experience</h2></div>
     <div id="expList2"></div>
   </div></section>
 
   <section class="sec" id="involvement"><div class="wrap">
-    <div class="h-head"><p class="eyebrow secno" aria-hidden="true"></p><h2>Organising, competitions and service</h2></div>
+    <div class="h-head"><h2>Organising, competitions and service</h2></div>
     <div class="involve" id="involve"></div>
   </div></section>
 
   <section class="sec" id="awards"><div class="wrap">
-    <div class="h-head"><p class="eyebrow secno" aria-hidden="true"></p><h2>Awards &amp; Honours</h2></div>
+    <div class="h-head"><h2>Awards &amp; Honours</h2></div>
     <div class="award-grid" id="awardGrid"></div>
   </div></section>
 
-  <section class="sec" id="lab"><div class="wrap">
-    <div class="h-head"><p class="eyebrow secno" aria-hidden="true"></p><h2>Interactive Lab</h2><p class="h-note">Small tools built from my projects.</p></div>
-    <div class="tool-grid" id="labGrid"></div>
-  </div></section>
 
-  <section class="sec" id="notes"><div class="wrap">
-    <div class="h-head"><p class="eyebrow secno" aria-hidden="true"></p><h2>Notes</h2><p class="h-note">Short write-ups on things I learned the hard way.</p></div>
-    <div class="note-grid" id="noteGrid"></div>
-  </div></section>
 
   <section class="sec" id="contact"><div class="wrap">
     <div class="card contact-card">
       <h2>Get in touch</h2>
-      <p>Open to research collaborations, internships and graduate research opportunities.</p>
+      <p>Research idea, internship, or a robot that refuses to drive straight? I&rsquo;d like to hear about it. Collaborations and graduate research opportunities welcome.</p>
       <div class="contact-pills" id="contactPills"></div>
     </div>
   </div></section>
@@ -5565,6 +5741,7 @@ function renderDetail(id) {
   document.title = `${d.title} | ${SITE.name}`;
 }
 function relatedNotes(id) {
+  return ""; /* notes section removed */
   const ns = SITE.notes.filter((n) => n.from === id);
   return ns.length ? `<section class="d-sec"><h2>Related notes</h2><div>${ns.map((n) => `<p><a href="#/n/${n.id}">${esc(n.title)}</a></p>`).join("")}</div></section>` : "";
 }
@@ -6434,7 +6611,7 @@ function route() {
     if (target) requestAnimationFrame(() => target.scrollIntoView());
   }
 }
-window.addEventListener("hashchange", route);
+window.addEventListener("hashchange", () => (window.pageSwap || route)());
 document.addEventListener("click", (e) => {
   const a = e.target.closest('a[href="#demo"]');
   if (a) { e.preventDefault(); const d = $("demo"); if (d) d.scrollIntoView({ behavior: "smooth" }); }
@@ -6528,9 +6705,10 @@ const SKILLS2 = [
 ];
 const EDU2 = [
   { when: "2022 to present", title: "Bangladesh University of Engineering and Technology (BUET)", sub: "Bachelor of Science in Mechanical Engineering",
-    pills: [["Currently Level 4, Term 1", "green"], ["CGPA 3.25 / 4.00", "blue"]], place: "Dhaka", icon: "university", main: true },
-  { when: "2019 to 2021", title: "Satkhira Government College", sub: "Higher Secondary Certificate (HSC), Science", pills: [["GPA 5.00 / 5.00", "blue"]], place: "Satkhira", icon: "school" },
-  { when: "2019", title: "Satkhira Government High School", sub: "Secondary School Certificate (SSC), Science", pills: [["GPA 5.00 / 5.00", "blue"]], place: "Satkhira", icon: "school" }
+    pills: [["Currently Level 4, Term 1", "green"], ["CGPA 3.25 / 4.00", "blue"]], place: "Dhaka", icon: "university", main: true, url: "https://www.buet.ac.bd/web/" },
+  { when: "2019 to 2021", title: "Satkhira Government College", sub: "Higher Secondary Certificate (HSC), Science", pills: [["GPA 5.00 / 5.00", "blue"]], place: "Satkhira", icon: "school", url: "https://www.satkhiragovtcollege.edu.bd/" },
+  { when: "2011 to 2019", title: "Satkhira Government High School", sub: "Secondary School Certificate (SSC), Science", pills: [["GPA 5.00 / 5.00", "blue"]], place: "Satkhira", icon: "school", url: "https://satkhiragovthighschool.jessoreboard.gov.bd/" },
+  { when: "2007 to 2011", title: "Satkhira Kindergarten School", sub: "Primary education", pills: [], place: "Satkhira", icon: "school", url: "https://www.facebook.com/skg96.edu/" }
 ];
 const CARD_IMG = { "cocrni-thesis": "th_cna", "vertiscan": "vs_cad", "aerial-ground-navigation": "nav_arena", "swirl-heat-exchanger": "hx_cutaway", "ackermann-steering": "ack_full" };
 const EXP2 = [
@@ -6603,7 +6781,7 @@ const ACT_KIND = ["Leadership", "Team", "Volunteering"];
   DETAILS["swirl-heat-exchanger"].figures.unshift(["hx_poster", "Project cover: the swirl insert, CFD temperature field and measured gain."]);
   DETAILS["ackermann-steering"].figures.unshift(["ack_poster", "Project cover: the steering model, the FEA singularity and the Ackermann geometry."]);
   DETAILS["aerial-ground-navigation"].figures.unshift(["nav_drovernet", "DroverNet project cover, redrawn from our ME 366 poster (Group C13)."], ["nav_cover", "CAD models of the drone (left) and the ground rover (right)."]);
-  EDU2[0].logo = "logo_buet"; EDU2[1].logo = "logo_sgc"; EDU2[2].logo = "logo_sghs";
+  EDU2[0].logo = "logo_buet"; EDU2[1].logo = "logo_sgc"; EDU2[2].logo = "logo_sghs"; MEDIA.logo_skg = "assets/logo-skg.webp"; EDU2[3].logo = "logo_skg";
   SITE.community.forEach((c, i) => { c.logo = ["logo_brs", "logo_nuvola", "logo_brs", "logo_badhon"][i]; });
   /* The workshop now lives in Experience, so drop its activity card */
   SITE.community = SITE.community.filter((c) => !/Basic Robotics Workshop/.test(c.role));
@@ -6626,15 +6804,15 @@ function eyebrowHead(eyebrow, title, note) {
 function renderHome() {
   document.documentElement.lang = "en";
   $("navLinks").innerHTML = [["about", "About"], ["skills", "Skills"], ["education", "Education"], ["projects", "Projects"], ["publications", "Publications"],
-    ["experience", "Experience"], ["lab", "Lab"], ["contact", "Contact"]]
+    ["experience", "Experience"], ["contact", "Contact"]]
     .map(([id, t]) => `<a href="#${id}">${t}</a>`).join("");
 
   /* Hero */
-  $("heroLede").textContent = "Fourth year, graduating July 2027. I build low-cost robots that navigate without GPS and simulate alloys one atom at a time.";
+  $("heroLede").innerHTML = "I build robots that find their way without GPS.<br>Still finding mine.";
   $("heroCta").innerHTML = `
     <a class="pill primary" href="#projects">View projects</a>
     <button class="pill" type="button" data-cv>${svgI("pdf")}Download CV</button>`;
-  $("heroStats").innerHTML = [
+  if ($("heroStats")) $("heroStats").innerHTML = [
     [SITE.current.length, "Projects in progress"],
     [SITE.projects.length, "Completed projects"],
     [SITE.publications.length, SITE.publications.length === 1 ? "IEEE conference paper" : "Publications"],
@@ -6663,7 +6841,7 @@ function renderHome() {
       <article class="card edu-card">
         <div class="edu-ico">${e.logo ? `<img src="${MEDIA[e.logo]}" alt="${esc(e.title)} logo" loading="lazy">` : svgI(e.icon, "i big")}</div>
         <div class="edu-body">
-          <h3>${esc(e.title)}</h3>
+          <h3>${e.url ? `<a class="edu-link" href="${esc(e.url)}" target="_blank" rel="noopener">${esc(e.title)}<svg class="ext" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8"/></svg><span class="sr-only"> (opens the institution\u2019s website)</span></a>` : esc(e.title)}</h3>
           <p class="sub">${esc(e.sub)}</p>
           <div class="meta">${e.pills.map(([t, c]) => `<span class="chip ${c}">${esc(t)}</span>`).join("")}<span class="place">${svgI("pin")}${esc(e.place)}</span></div>
         </div>
@@ -6780,7 +6958,7 @@ function renderHome() {
     </article>`).join("");
 
   /* Lab */
-  $("labGrid").innerHTML = SITE.lab.map((l) => `
+  if ($("labGrid")) $("labGrid").innerHTML = SITE.lab.map((l) => `
     <article class="card tool-card">
       ${svgI(ICON_OF[l.id], "i big")}
       <h3><a href="#/lab/${l.id}">${esc(l.title)}</a></h3>
@@ -6789,7 +6967,7 @@ function renderHome() {
     </article>`).join("");
 
   /* Notes */
-  $("noteGrid").innerHTML = SITE.notes.map((n) => `
+  if ($("noteGrid")) $("noteGrid").innerHTML = SITE.notes.map((n) => `
     <article class="card note-card">
       <div class="nc-top">${svgI(ICON_OF[n.id], "i big")}<span>${esc(n.date)}, ${esc(n.read)} read</span></div>
       <h3><a href="#/n/${n.id}">${esc(n.title)}</a></h3>
@@ -6833,7 +7011,7 @@ function applyTheme(t) {
   themeBtn.dataset.mode = t;
 }
 applyTheme(root.getAttribute("data-theme") || "dark");
-try { const saved = localStorage.getItem("theme"); if (saved === "light" || saved === "dark") applyTheme(saved); } catch (e) {}
+applyTheme("dark"); try { localStorage.removeItem("theme"); } catch (e) {} /* one theme only */
 themeBtn.addEventListener("click", () => { const t = root.getAttribute("data-theme") === "dark" ? "light" : "dark"; applyTheme(t); try { localStorage.setItem("theme", t); } catch (e) {} });
 
 /* ---------- Fade-in on scroll ---------- */
@@ -7039,6 +7217,210 @@ route();
 
 
 
+</script>
+<script>
+/* Number each project card and show one standout result */
+(function () {
+  const M = {
+    "aerial-ground-navigation": ["10\u201320 cm", "from target, with no GPS on the rover"],
+    "cocrni-thesis": ["91%", "of the chemical ordering sits in the core"],
+    "vertiscan": ["30 km", "planned balloon flight altitude"],
+    "fly-brain-robot": ["165,000", "neurons in the connectome it runs"],
+    "swirl-heat-exchanger": ["+68.7%", "heat transfer from a twisted-tape insert"],
+    "ackermann-steering": ["~8", "safety factor on the pinion"]
+  };
+  const cards = [...document.querySelectorAll("#nowGrid2 .proj-card, #featProj, #projGrid .proj-card")];
+  cards.forEach((c, i) => {
+    if (c.querySelector(".pm")) return;
+    const a = c.querySelector('h3 a[href^="#/p/"]'); if (!a) return;
+    const id = a.getAttribute("href").slice(4), h = a.closest("h3");
+    const m = M[id]; if (!m) return;
+    const role = c.querySelector(".role") || h;
+    role.insertAdjacentHTML("afterend", `<p class="pm"><b>${m[0]}</b><span>${m[1]}</span></p>`);
+  });
+})();
+</script>
+<script>
+/* =================== Motion layer (inspired by jaspreetsingh.xyz) =================== */
+(function () {
+  const root = document.documentElement;
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  root.classList.add("m-on");
+
+  /* Loader: once per session */
+  const ld = document.getElementById("ld");
+  let seen = false; try { seen = sessionStorage.getItem("ld") === "1"; } catch (e) {}
+  const finish = () => { root.classList.add("loaded"); if (ld) { ld.classList.add("out"); setTimeout(() => ld.remove(), 700); } };
+  setTimeout(finish, 3000); /* failsafe */
+  if (!ld || reduce || seen) { root.classList.add("ld-skip"); setTimeout(finish, 40); }
+  else {
+    try { sessionStorage.setItem("ld", "1"); } catch (e) {}
+    const bar = ld.querySelector(".ld-line i"), pct = ld.querySelector(".ld-pct");
+    const t0 = performance.now(), D = 1300;
+    const step = () => {
+      const k = Math.min(1, (performance.now() - t0) / D), e = 1 - Math.pow(1 - k, 3);
+      bar.style.transform = `scaleX(${e})`; pct.textContent = Math.round(e * 100) + "%";
+      if (k < 1) setTimeout(step, 24); else setTimeout(finish, 220);
+    };
+    step();
+  }
+
+  /* Section titles: a small handwritten aside */
+  const SUB = { skills: "in the toolbox", education: "so far", activities: "outside the lab", projects: "built, broken, rebuilt",
+    publications: "on paper", experience: "on the job", involvement: "for the community", awards: "along the way" };
+  document.querySelectorAll("section.sec").forEach((sec) => {
+    const h = sec.querySelector(".h-head h2");
+    if (h && SUB[sec.id] && !h.querySelector(".by-sub")) h.insertAdjacentHTML("beforeend", ` <span class="by-sub">${SUB[sec.id]}</span>`);
+  });
+
+  /* Split headings into words that rise in */
+  const split = (el) => {
+    if (!el || el.dataset.mr !== undefined) return;
+    el.dataset.mr = "";
+    let i = 0;
+    const walk = (node) => {
+      [...node.childNodes].forEach((n) => {
+        if (n.nodeType === 3) {
+          const parts = n.textContent.split(/(\s+)/);
+          const frag = document.createDocumentFragment();
+          parts.forEach((p) => {
+            if (!p) return;
+            if (/^\s+$/.test(p)) { frag.appendChild(document.createTextNode(p)); return; }
+            const w = document.createElement("span"); w.className = "mw";
+            const s = document.createElement("span"); s.textContent = p; s.style.setProperty("--i", i++);
+            w.appendChild(s); frag.appendChild(w);
+          });
+          n.replaceWith(frag);
+        } else if (n.nodeType === 1 && !n.classList.contains("mw")) {
+          if (n.classList.contains("by-sub") || n.tagName === "BR") {
+            const w = document.createElement("span"); w.className = "mw"; n.replaceWith(w);
+            const s = document.createElement("span"); s.style.setProperty("--i", i++); s.appendChild(n); w.appendChild(s);
+          } else walk(n);
+        }
+      });
+    };
+    walk(el);
+  };
+  const io = "IntersectionObserver" in window ? new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { e.target.classList.add("is-in"); io.unobserve(e.target); } }), { rootMargin: "0px 0px -12% 0px", threshold: 0.1 }) : null;
+  const watch = (el) => { if (!el) return; if (!io || reduce) el.classList.add("is-in"); else io.observe(el); };
+  const arm = (scope) => {
+    scope.querySelectorAll(".h-head h2, .about-text2 .h-about, .contact-card h2, .d-head h1, .d-sec > h2, .by-pair .by").forEach((h) => { split(h); watch(h); });
+    scope.querySelectorAll(".h-head, .d-sec").forEach(watch);
+  };
+  arm(document);
+
+  /* Scroll-spy: underline the section you are reading */
+  const links = [...document.querySelectorAll("nav.links a[href^='#']")];
+  if (links.length && "IntersectionObserver" in window) {
+    const byId = Object.fromEntries(links.map((a) => [a.getAttribute("href").slice(1), a]));
+    const spy = new IntersectionObserver((es) => es.forEach((e) => {
+      if (e.isIntersecting && byId[e.target.id]) { links.forEach((a) => a.classList.remove("is-current")); byId[e.target.id].classList.add("is-current"); }
+    }), { rootMargin: "-45% 0px -50% 0px" });
+    Object.keys(byId).forEach((id) => { const s = document.getElementById(id); if (s) spy.observe(s); });
+  }
+
+  /* Hero parallax: photo drifts slower, text fades as you scroll */
+  const hero = document.querySelector(".hero-photo-bg"), bg = hero && hero.querySelector(".hero-bg"), copy = hero && hero.querySelector(".wrap");
+  if (hero && !reduce) {
+    let q = false;
+    const par = () => {
+      q = false; const y = scrollY, h = hero.offsetHeight || innerHeight; if (y > h * 1.2) return;
+      bg.style.transform = `translate3d(0, ${y * 0.3}px, 0)`;
+      copy.style.transform = `translate3d(0, ${y * -0.06}px, 0)`; copy.style.opacity = String(Math.max(0, 1 - y / (h * 0.75)));
+    };
+    addEventListener("scroll", () => { if (!q) { q = true; requestAnimationFrame(par); } }, { passive: true });
+  }
+
+  /* Page fade between home and project pages */
+  window.pageSwap = function () {
+    const toDetail = /^#\/(p|n|lab)\//.test(location.hash);
+    const inDetail = !document.getElementById("detail").hidden;
+    if (reduce || (!toDetail && !inDetail)) { route(); if (toDetail) arm(document.getElementById("detail")); return; }
+    root.classList.add("pt-leave");
+    setTimeout(() => {
+      route(); root.classList.remove("pt-leave"); root.classList.add("pt-arrive");
+      arm(document.getElementById("detail"));
+      setTimeout(() => root.classList.remove("pt-arrive"), 800);
+    }, 230);
+  };
+  /* A project page opened directly from a link */
+  if (/^#\/(p|n|lab)\//.test(location.hash)) arm(document.getElementById("detail"));
+})();
+</script>
+<script>
+/* =================== Scroll-driven sky: beach -> dusk sky (by About) -> night with stars =================== */
+(function () {
+  const scene = document.getElementById("scene"); if (!scene) return;
+  const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const cv = document.getElementById("stars"), ctx = cv.getContext && cv.getContext("2d");
+  const clamp = (v) => Math.min(1, Math.max(0, v)), smooth = (v) => { v = clamp(v); return v * v * (3 - 2 * v); };
+  let stars = [], W = 0, H = 0, dpr = 1;
+
+  const size = () => {
+    scene.style.setProperty("--sh", innerHeight + "px");
+    if (!ctx) return;
+    dpr = Math.min(devicePixelRatio || 1, 2); W = innerWidth; H = innerHeight;
+    cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const n = Math.round((W * H) / 2600);
+    stars = Array.from({ length: n }, () => ({ x: Math.random() * W, y: Math.pow(Math.random(), 1.4) * H, r: Math.random() < 0.08 ? 1.3 + Math.random() * 0.7 : 0.35 + Math.random() * 0.8, a: 0.35 + Math.random() * 0.65, s: Math.random() * 6.28, f: 0.4 + Math.random() * 1.4 }));
+  };
+  const draw = (t) => {
+    if (!ctx) return;
+    ctx.clearRect(0, 0, W, H);
+    for (const st of stars) {
+      const tw = reduce ? 1 : 0.65 + 0.35 * Math.sin(st.s + t * 0.001 * st.f);
+      ctx.globalAlpha = st.a * tw; ctx.fillStyle = "#fff";
+      ctx.beginPath(); ctx.arc(st.x, st.y, st.r, 0, 6.283); ctx.fill();
+    }
+    ctx.globalAlpha = 1;
+  };
+
+  let pan = 0, night = 0, starsOn = 0;
+  /* Targets follow the scroll; the shown values glide toward them so the pan feels slow and smooth */
+  const tgt = { pan: 0, night: 0, stars: 0, dim: 0 }, cur = { pan: 0, night: 0, stars: 0, dim: 0 };
+  let gliding = false, first = true;
+  const targets = () => {
+    const home = document.getElementById("top"), about = document.getElementById("about");
+    const onHome = home && !home.hidden && about;
+    const y = scrollY, maxY = Math.max(1, document.documentElement.scrollHeight - innerHeight);
+    if (onHome) {
+      const r = about.getBoundingClientRect(), aTop = r.top + y, aEnd = Math.max(1, aTop + r.height * 0.85);
+      tgt.pan = smooth(y / aEnd);                                  /* beach -> sky across the hero and the whole About section */
+      tgt.dim = 0.55 * smooth(y / Math.max(1, aTop * 0.9));        /* dim the scene behind text once the hero is passed */
+      const k = clamp((y - aEnd) / Math.max(1, maxY - aEnd));      /* then dusk -> night down the page */
+      tgt.night = smooth(k * 1.5); tgt.stars = smooth((k - 0.06) / 0.55);
+    } else { tgt.pan = 1; tgt.dim = 0.45; const k = clamp(y / maxY); tgt.night = 0.55 + 0.45 * smooth(k * 1.4); tgt.stars = 0.5 + 0.5 * smooth(k); }
+  };
+  const paint = () => {
+    pan = cur.pan; night = cur.night; starsOn = cur.stars;
+    scene.style.setProperty("--pan", pan.toFixed(4));
+    scene.style.setProperty("--night", night.toFixed(4));
+    scene.style.setProperty("--stars", starsOn.toFixed(4));
+    scene.style.setProperty("--veil", (cur.dim * (1 - night)).toFixed(4));
+  };
+  const glide = () => {
+    const f = reduce || first ? 1 : 0.055; first = false;
+    let moving = false;
+    for (const k in tgt) { const d = tgt[k] - cur[k]; if (Math.abs(d) > 0.0008) { cur[k] += d * f; moving = true; } else cur[k] = tgt[k]; }
+    paint();
+    if (moving) requestAnimationFrame(glide); else gliding = false;
+  };
+  const update = () => { targets(); if (!gliding) { gliding = true; requestAnimationFrame(glide); } };
+
+  let q = false;
+  const onScroll = () => { if (!q) { q = true; requestAnimationFrame(() => { q = false; update(); }); } };
+  addEventListener("scroll", onScroll, { passive: true });
+  addEventListener("resize", () => { size(); update(); draw(performance.now()); });
+  addEventListener("hashchange", () => setTimeout(update, 300));
+  size(); update(); draw(0);
+
+  /* Twinkle only while stars are visible, at a gentle frame rate */
+  if (!reduce && ctx) {
+    let last = 0;
+    const loop = (t) => { requestAnimationFrame(loop); if (starsOn < 0.03 || document.hidden || t - last < 66) return; last = t; draw(t); };
+    requestAnimationFrame(loop);
+  }
+})();
 </script>
 </body>
 </html>
