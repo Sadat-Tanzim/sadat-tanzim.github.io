@@ -4914,12 +4914,6 @@ footer.foot { background: transparent !important; border-top: 1px solid rgba(246
 
 /* Stars stay in the upper sky; the horizon stays clear */
 #scene #stars { -webkit-mask-image: none; mask-image: none; }
-/* Circular OPEN badge */
-.open-badge { position: fixed; left: 0; top: 0; z-index: 80; width: 74px; height: 74px; border-radius: 50%; display: grid; place-items: center; grid-auto-flow: column; gap: 4px;
-  background: rgba(246,241,232,0.92); color: #14110f; font-family: var(--mono); font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; pointer-events: none;
-  opacity: 0; transition: opacity .25s ease; will-change: transform; }
-.open-badge svg { width: 12px; height: 12px; fill: none; stroke: currentColor; stroke-width: 2; }
-.open-badge.on { opacity: 1; }
 .proj-card, #featProj { cursor: pointer; }
 
 /* Transparent top bar: just the links over the scene */
@@ -5264,7 +5258,7 @@ const DETAILS = {
         "Hybrid molecular dynamics and Monte Carlo simulations in LAMMPS, using the Li–Sheng–Ma EAM potential. The wires are [111]-oriented, with diameters of 5, 8, 12 and 16 nm and twin spacings from 2.1 to 6.2 nm plus a twin-free control. Ordering is built up by Monte Carlo atom swaps and measured with Warren–Cowley parameters, compared against a composition-preserving shuffle so that random fluctuation isn't mistaken for order. Tensile simulations then measure yield strength.",
         "Before any results, the pipeline was validated: elastic constants match published values for the same potential within 0.4%, and a tensile benchmark lands within 4.2% of Yan et al. (2022)."] },
       { h: "Findings so far", p: [
-        "In 5 nm wires about 90% of the ordering sits in the core, about 10% at the twin boundaries and under 1% at the surface. That's striking because the surface is about 80% nickel: segregation and ordering turn out to be separate effects.",
+        "In 5 nm wires about 90% of the ordering sits in the core, about 10% at the twin boundaries and under 1% at the surface. The surface is about 80% nickel, so segregation and ordering are separate effects.",
         "Between 82% and 93% of first yield events start at the free surface or corners. Ordering raises the barrier to starting deformation there rather than moving it somewhere else. It raises yield strength by 15–27% in 5 nm wires and 5–17% in 8 nm wires, and the benefit saturates early in the annealing."] },
       { h: "Honest caveats", p: [
         "Ordering has not fully converged even after long anneals, so every CSRO effect here is a lower bound. The EAM potential also gets some nickel pair trends backwards compared with quantum-mechanical calculations, so the conclusions lean on cobalt and chromium chemistry and on nickel segregation. With two diameters so far, the size effect is a difference, not yet a trend."] },
@@ -5309,7 +5303,7 @@ const DETAILS = {
     meta: [["Type", "Independent research project"], ["Brain", "MaleCNS connectome, simulated on a GPU"], ["Body", "ESP32 robot with left and right heat sensors"], ["Status", "Planning and literature search"]],
     sections: [
       { h: "The idea", p: [
-        "Fly connectomes have been run in games and simulations. As far as the search so far shows, nobody has put a complete one in a physical robot and tested it with proper scientific controls. The aim is to let the real wiring decide, with no trained readout and no hidden rules, so any fly-like behaviour genuinely comes from the brain."] },
+        "Fly connectomes have been run in games and simulations. As far as the search so far shows, nobody has put a complete one in a physical robot and tested it with proper scientific controls. The aim is to let the real wiring decide, with no trained readout and no hidden rules, so any fly-like behaviour comes from the brain."] },
       { h: "How it works", diagram: true, p: [
         "The whole brain lives on the PC and the robot is its body. The ESP32 reads the heat sensors and sends timestamped readings over Bluetooth, the PC turns them into firing of the fly's heat-sensing neurons, and movement-neuron activity comes back as wheel speeds. Nothing between the sensory and movement neurons is hand-coded. The motors stop automatically if no command arrives for 200 ms."] },
       { h: "How it will be tested", p: [
@@ -5383,7 +5377,7 @@ const DETAILS = {
   "ackermann-steering": {
     back: "projects", status: "Completed", done: true,
     title: "Design and analysis of an Ackermann steering mechanism",
-    summary: "Kinematic and structural analysis of a rack-and-pinion steering system, and a careful look at why the simulation disagreed with the hand calculations.",
+    summary: "Kinematic and structural analysis of a rack-and-pinion steering system, and why the simulation disagreed with the hand calculations.",
     stats: [["23.2°", "outer wheel angle for a 30° inner turn"], ["27.3 MPa", "pinion bending stress at 15 N·m"], ["≈ 8", "factor of safety on the gearset"], ["147 MPa", "U-joint stress at a 300 N·m shock, below yield"]],
     meta: [["Course", "ME 352, Machine Design Sessional"], ["Year", "2025"], ["Material", "Structural steel, 220.6 MPa yield"], ["Scope", "Kinematics, hand calculations and FEA"]],
     report: { key: "ack", title: "Project report, ME 352" },
@@ -5449,8 +5443,8 @@ SITE.experience = SITE.experience.slice(0, 2);
 
 SITE.research = {
   paras: [
-    "I want to build robots that stay useful when infrastructure fails: no GPS, no expensive sensors, no reliable map. My projects so far point that way: a drone that plans the route for a ground rover, a CanSat that steers itself back toward dry land, and a robot driven by a real insect brain.",
-    "Alongside robotics, my thesis taught me to think at the scale of atoms. Simulating how chemical order forms in CoCrNi nanowires showed me how much a structure\u2019s behaviour depends on details you can\u2019t see, and how careful you have to be before trusting a result.",
+    "I want to build robots that keep working without GPS, expensive sensors or a ready-made map. My projects so far point that way: a drone that plans the route for a ground rover, a CanSat that steers itself back toward dry land, and a robot driven by a real insect brain.",
+    "Alongside robotics, my thesis works at the scale of atoms: I simulate how chemical order forms in CoCrNi nanowires and how it changes their strength.",
     "After graduating in 2027, I hope to continue in graduate research on autonomous systems, and I\u2019m always glad to hear from groups working on these problems."
   ],
   paras_bn: [
@@ -5472,7 +5466,7 @@ SITE.research = {
 
 /* Shorter About and Research text */
 SITE.about = [
-  "I'm a mechanical engineering undergraduate at BUET, working where robotics meets materials: building low-cost autonomous systems that navigate without GPS, and using atomistic simulation to understand what makes alloys strong.",
+  "I'm a mechanical engineering undergraduate at BUET. I build low-cost robots that navigate without GPS, and I use atomistic simulation to study what makes alloys strong.",
   "Outside the lab I'm Vice President of the BUET Robotics Society and project manager of Team NUVOLA."
 ];
 SITE.research.paras = [
@@ -5586,11 +5580,11 @@ SITE.notes = [
     ] },
   { id: "lammps-mdmc", date: "September 2026", read: "4 min", from: "cocrni-thesis",
     title: "Five things I learned running hybrid MD/MC in LAMMPS",
-    summary: "Practical lessons from months of simulating chemical order in alloy nanowires, most of them learned the hard way.",
+    summary: "Mistakes I made in months of simulating chemical order in alloy nanowires, and how I fixed them.",
     body: [
       "My thesis uses hybrid molecular dynamics and Monte Carlo in LAMMPS to let atoms in CoCrNi nanowires swap places and settle into chemical order. Here are the lessons that cost me the most time.",
       { h: "1. Count your atoms after every stage" },
-      "With shrink-wrapped non-periodic boundaries, my wires were silently losing atoms, and losing nickel more than the others, which quietly biased the chemistry. Switching to fixed boundaries with reflecting walls and some padding fixed it. Now every stage checks the atom count and energy before moving on.",
+      "With shrink-wrapped non-periodic boundaries, my wires were losing atoms without any warning, nickel more than the others, which biased the chemistry. Switching to fixed boundaries with reflecting walls and some padding fixed it. Now every stage checks the atom count and energy before moving on.",
       { h: "2. Measure Monte Carlo dose per atom" },
       "Raw step counts mean different things for wires of different sizes. Reporting swap attempts per atom makes wires comparable and makes it obvious when ordering has saturated.",
       { h: "3. One random seed can fake a trend" },
@@ -7283,7 +7277,7 @@ route();
   }
 
   /* Section titles: a small handwritten aside */
-  const SUB = { skills: "in the toolbox", education: "so far", activities: "outside the lab", projects: "built, broken, rebuilt",
+  const SUB = { skills: "in the toolbox", education: "so far", activities: "outside the lab", projects: "built, then rebuilt",
     publications: "on paper", experience: "on the job", involvement: "for the community", awards: "along the way" };
   document.querySelectorAll("section.sec").forEach((sec) => {
     const h = sec.querySelector(".h-head h2");
@@ -7493,26 +7487,12 @@ route();
   setTimeout(() => { collect(); queue(); }, 1500);
 })();
 
-/* =================== "OPEN" badge follows the cursor over projects =================== */
+/* =================== Whole project card opens its project =================== */
 (function () {
-  if (!matchMedia("(hover: hover) and (pointer: fine)").matches) return;
-  const b = document.createElement("div"); b.className = "open-badge"; b.setAttribute("aria-hidden", "true");
-  b.innerHTML = 'Open <svg viewBox="0 0 24 24"><path d="M7 17L17 7M9 7h8v8"/></svg>';
-  document.body.appendChild(b);
-  /* the whole card opens its project */
   document.addEventListener("click", (e) => {
     const card = e.target.closest(".proj-card, #featProj"); if (!card || e.target.closest("a, button, [data-fly3d]")) return;
     const a = card.querySelector('h3 a[href^="#/p/"]'); if (a) location.hash = a.getAttribute("href");
   });
-  let x = 0, y = 0, cx = 0, cy = 0, on = false, raf = 0;
-  const loop = () => { cx += (x - cx) * 0.22; cy += (y - cy) * 0.22; b.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%) scale(${on ? 1 : 0.4})`; raf = (on || Math.abs(x - cx) > 0.5) ? requestAnimationFrame(loop) : 0; };
-  document.addEventListener("mousemove", (e) => {
-    x = e.clientX; y = e.clientY;
-    const t = e.target.closest(".proj-card, #featProj");
-    const now = !!(t && !e.target.closest("button, .btns a, .pill"));
-    if (now !== on) { on = now; b.classList.toggle("on", on); if (on && !raf) { cx = x; cy = y; } }
-    if (!raf) raf = requestAnimationFrame(loop);
-  }, { passive: true });
 })();
 </script>
 </body>
