@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://sadat-tanzim.github.io/sitemap.xml
