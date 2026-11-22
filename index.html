@@ -4926,6 +4926,10 @@ header.top .brand, header.top nav.links a { text-shadow: 0 1px 10px rgba(0,0,0,0
 
 .brand svg { width: 38px !important; height: 38px !important; }
 #ld .ld-mark { width: 56px; height: 56px; display: block; margin-bottom: 14px; opacity: 0; animation: ldIn .9s var(--m-ease) forwards; }
+
+/* manuscripts ready to submit */
+.pub-ms { width: 120px; height: 64px; border-radius: 6px; display: grid; place-items: center; border: 1px dashed rgba(246,241,232,.28); color: #F0A35E; }
+.pub-ms svg { width: 26px; height: 26px; }
 </style>
 <script type="application/ld+json">
 {
@@ -5004,7 +5008,7 @@ header.top .brand, header.top nav.links a { text-shadow: 0 1px 10px rgba(0,0,0,0
       <div class="about-slot photo-slot" id="slotAbout"><img data-photo alt="" width="560" height="700" loading="lazy"></div>
       <div class="about-text2"><h2 class="h-about">About me</h2><div class="by-pair"><p class="by"><span class="hand">Engineer</span><em>by degree</em></p><p class="by"><span class="hand">Roboticist</span><em>by passion</em></p><p class="by"><span class="hand">Singer</span><em>by heart</em></p></div><div id="aboutBody"></div></div>
     </div>
-    <aside class="card glance glance-row" aria-label="At a glance"><h3>At a glance</h3><dl id="glance"></dl></aside>
+    
   </div></section>
 
   <section class="sec" id="skills"><div class="wrap">
@@ -5259,7 +5263,19 @@ const SITE = {
       authors: "A. S. Tahmid, M. S. Tanzim, A. R. Junaid, and T. A. Tonoy",
       title: "Aerial Perception-Driven Navigation for Low-Cost Ground Vehicles in GPS-Denied Scenario",
       venue: "IEEE MARSCON 2026, Ahsanullah University of Science and Technology, Dhaka, 17 August 2026. All authors contributed equally.",
-      link: ""
+      link: "", logo: "ieee", year: "2026", type: "Conference paper", status: "Presented", statusColor: "green"
+    },
+    {
+      authors: "M. S. Tanzim and T. A. Tonoy",
+      title: "Chemical Short-Range Order Raises Strength Far More Than Stiffness and Masks Twin-Spacing Effects in CoCrNi Nanowires",
+      venue: "Manuscript complete, ready for conference submission.",
+      link: "", year: "2026", type: "Conference paper", status: "Ready to submit", statusColor: "amber"
+    },
+    {
+      authors: "M. S. Tanzim and T. A. Tonoy",
+      title: "Yield Strength Saturates Before Chemical Short-Range Order Does in CoCrNi Nanowires",
+      venue: "Manuscript complete, ready for conference submission.",
+      link: "", year: "2026", type: "Conference paper", status: "Ready to submit", statusColor: "amber"
     }
   ],
 
@@ -5505,7 +5521,7 @@ SITE.research = {
 
 /* Shorter About and Research text */
 SITE.about = [
-  "I'm a mechanical engineering undergraduate at BUET. I build low-cost robots that navigate without GPS, and I use atomistic simulation to study what makes alloys strong.",
+  "I'm a mechanical engineering undergraduate at BUET. My work spans a drone and rover team that navigates without GPS, a CanSat that profiles air pollution, and a robot driven by a real fruit fly brain. For my thesis, I simulate how chemical order makes CoCrNi alloy nanowires stronger.",
   "Outside the lab I'm Vice President of the BUET Robotics Society and project manager of Team NUVOLA. I also sing and play the guitar."
 ];
 SITE.research.paras = [
@@ -5538,10 +5554,11 @@ SITE.community = [
 SITE.involvement = [
   { group: "Organising", items: [
     ["2026", "Organising committee member", "Intra-BUET Robotics Competition", "assets/org-intrabuet26.webp", "Reviewing a score sheet with a judge at the Intra-BUET Robotics Competition 2026", "45% 40%"],
+    ["2026", "Organising committee member", "BUET Robo Carnival", "assets/org-robocarnival.webp", "The organising team at BUET Robo Carnival in the evening", "50% 50%"],
     ["2024", "Organising committee member", "Intra-BUET Robotics Competition", "assets/org-intrabuet24.webp", "Organisers in Intra-BUET Robo Challenge shirts inspecting a competition robot", "45% 45%"],
-    ["2024", "Organising committee member", "BUET Robo Carnival", "assets/org-robocarnival.webp", "The organising team at BUET Robo Carnival in the evening", "50% 50%"],
     ["2023", "Organising committee member", "Hult Prize at BUET", "assets/org-hult.webp", "Group photo of the Hult Prize at BUET organisers and participants", "50% 50%"] ] },
   { group: "Competitions and presentations", items: [
+    ["2026", "Project showcasing: DroverNet, 1st Runner-Up", "EEE Day 2026, Department of EEE, BUET", "assets/inv-eeeday26.webp", "Receiving the 1st runner-up certificate for DroverNet on stage at EEE Day 2026", "50% 45%"],
     ["2026", "Project showcasing: DroverNet", "BUET Robo Carnival 2026", "assets/inv-robocarnival26.webp", "The DroverNet team with the drone and rover at the BUET Robo Carnival 2026 project showcase", "50% 45%"],
     ["2025", "Participant", "UAP Techtron, University of Asia Pacific, Dhaka", "assets/inv-uap.webp", "Holding a mecanum-wheel robot at UAP Techtron 2025", "50% 45%"],
     ["2024", "Participant", "Soccer Bot Competition, BUET Robo Carnival", "assets/inv-intrabuet.webp", "Our mecanum-wheel soccer bot on the table at BUET Robo Carnival", "50% 72%"],
@@ -6868,7 +6885,7 @@ function renderHome() {
   if ($("heroStats")) $("heroStats").innerHTML = [
     [SITE.current.length, "Projects in progress"],
     [SITE.projects.length, "Completed projects"],
-    [SITE.publications.length, SITE.publications.length === 1 ? "IEEE conference paper" : "Publications"],
+    [SITE.publications.filter((p) => !p.statusColor || p.statusColor === "green").length, SITE.publications.filter((p) => !p.statusColor || p.statusColor === "green").length === 1 ? "IEEE conference paper" : "Publications"],
     ["2027", "Graduating, BUET ME"]
   ].map(([n, t]) => `<div><dt>${esc(String(n).padStart(String(n).length > 1 ? 0 : 2, "0"))}</dt><dd>${esc(t)}</dd></div>`).join("");
 
@@ -6879,7 +6896,7 @@ function renderHome() {
     <ul class="tagrow">${SITE.research.dirs.map((d) => `<li title="${esc(d.d)}">${esc(d.t)}</li>`).join("")}</ul>
     <p class="statusline"><span class="dot-green" aria-hidden="true"></span>Thesis in progress, graduating July 2027. Open to graduate research opportunities.</p>`;
 
-  $("glance").innerHTML = [["university", "Studying", "B.Sc. in Mechanical Engineering, BUET"], ["briefcase", "Year", "Level 4, Term 1, graduating July 2027"],
+  if ($("glance")) $("glance").innerHTML = [["university", "Studying", "B.Sc. in Mechanical Engineering, BUET"], ["briefcase", "Year", "Level 4, Term 1, graduating July 2027"],
     ["lattice", "Thesis", "Chemical short-range order in CoCrNi nanowires"], ["droneRover", "Focus", "Robotics, autonomy and atomistic simulation"],
     ["pin", "Based in", "Dhaka, Bangladesh"]].map(([ic, k, v]) => `<div>${svgI(ic, "i big")}<span><dt>${k}</dt><dd>${esc(v)}</dd></span></div>`).join("");
 
@@ -6974,17 +6991,17 @@ function renderHome() {
   /* Publications */
   $("pubList").innerHTML = SITE.publications.map((pb, i) => `
     <article class="card pub-card">
-      <div class="pub-side"><img class="pub-logo" src="${MEDIA.logo_ieee}" alt="IEEE logo" loading="lazy"><div class="pub-year">2026</div></div>
+      <div class="pub-side">${pb.logo === "ieee" ? `<img class="pub-logo" src="${MEDIA.logo_ieee}" alt="IEEE logo" loading="lazy">` : ""}<div class="pub-year">${esc(pb.year || "")}</div></div>
       <div>
-        <div class="meta"><span class="chip blue">Conference paper</span><span class="chip green">Presented</span></div>
+        <div class="meta"><span class="chip blue">${esc(pb.type || "Conference paper")}</span><span class="chip ${pb.statusColor || "green"}">${esc(pb.status || "Presented")}</span></div>
         <h3>${esc(pb.title)}</h3>
         <p class="authors">${esc(pb.authors).replace("M. S. Tanzim", "<b>M. S. Tanzim</b>")}</p>
         <p class="venue">${esc(pb.venue)}</p>
         <div class="btns">
           ${pb.report ? `<button class="pill sm green" type="button" data-report="${esc(pb.report)}" data-title="${esc(pb.title)}">${svgI("pdf")}Read paper</button>` : ""}
-          <button class="pill sm" type="button" data-cite="${i}" aria-expanded="false">${svgI("quote")}Cite</button>
+          ${pb.bibtex ? `<button class="pill sm" type="button" data-cite="${i}" aria-expanded="false">${svgI("quote")}Cite</button>` : ""}
         </div>
-        <div class="bib" id="bib${i}" hidden><pre>${esc(pb.bibtex)}</pre><button class="linkbtn" type="button" data-copy="${i}">Copy BibTeX</button></div>
+        ${pb.bibtex ? `<div class="bib" id="bib${i}" hidden><pre>${esc(pb.bibtex)}</pre><button class="linkbtn" type="button" data-copy="${i}">Copy BibTeX</button></div>` : ""}
       </div>
     </article>`).join("");
 
