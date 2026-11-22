@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Md Sadat Tanzim, Mechanical Engineering, BUET</title>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2064%2064%22%20width%3D%22256%22%20height%3D%22256%22%3E%3Crect%20width%3D%2264%22%20height%3D%2264%22%20rx%3D%2214%22%20fill%3D%22%230b1226%22%2F%3E%3Cg%20transform%3D%22translate%2832%2034%29%20rotate%28-18%29%22%3E%3Cellipse%20rx%3D%2228%22%20ry%3D%229.5%22%20fill%3D%22none%22%20stroke%3D%22%23F0A35E%22%20stroke-width%3D%221.8%22%2F%3E%3C%2Fg%3E%3Cpath%20d%3D%22M153%20-60Q149%20-70%20130.5%20-70.5Q112%20-71%2095%20-58Q83%20-46%2079.5%20-39.5Q76%20-33%2083.0%20-17.5Q90%20-2%20107%2037Q111%2061%20121.0%2085.5Q131%20110%20136%20120Q140%20134%20152.5%20166.5Q165%20199%20181.5%20239.0Q198%20279%20213.0%20314.5Q228%20350%20235%20368Q252%20408%20270.0%20452.0Q288%20496%20319%20563Q323%20573%20318.5%20584.0Q314%20595%20297%20595Q287%20606%20286.0%20618.0Q285%20630%20296%20636L374%20663Q421%20674%20470.5%20669.5Q520%20665%20564%20642Q612%20614%20633.5%20582.0Q655%20550%20657.0%20517.5Q659%20485%20648%20457Q640%20436%20617.5%20411.0Q595%20386%20565.5%20361.0Q536%20336%20504.5%20315.5Q473%20295%20446%20284Q421%20272%20391.0%20260.5Q361%20249%20332%20240Q316%20236%20294.0%20236.0Q272%20236%20261%20240L244%20203Q234%20167%20209.5%2096.0Q185%2025%20153%20-60ZM550%20-76Q542%20-79%20526.5%20-78.0Q511%20-77%20488%20-62Q444%20-36%20400.0%201.0Q356%2038%20301%20101Q280%20126%20268.0%20149.5Q256%20173%20240%20211L226%20265L260%20287L302%20251Q318%20216%20340.5%20184.0Q363%20152%20385%20127Q403%20106%20434.0%2076.5Q465%2047%20500.0%2020.0Q535%20-7%20563%20-21Q569%20-26%20567.0%20-39.0Q565%20-52%20559.5%20-63.5Q554%20-75%20550%20-76ZM296%20309Q319%20311%20348.0%20321.0Q377%20331%20408%20344Q437%20358%20466.5%20375.5Q496%20393%20521.0%20414.5Q546%20436%20561.0%20460.0Q576%20484%20574%20510Q574%20523%20565.5%20538.5Q557%20554%20544.0%20566.0Q531%20578%20518%20582Q478%20592%20455.0%20594.5Q432%20597%20421.0%20589.5Q410%20582%20405%20562Q405%20559%20397.0%20542.5Q389%20526%20377.5%20501.5Q366%20477%20355%20449Q326%20390%20312.0%20361.5Q298%20333%20295.0%20323.0Q292%20313%20296%20309Z%22%20transform%3D%22translate%2815.55%2045.44%29%20scale%280.042%20-0.042%29%22%20fill%3D%22%23F6F1E8%22%2F%3E%3Cg%20transform%3D%22translate%2832%2034%29%20rotate%28-18%29%22%3E%3Cpath%20d%3D%22M-28%200A28%209.5%200%200%200%2028%200%22%20fill%3D%22none%22%20stroke%3D%22%23F0A35E%22%20stroke-width%3D%221.8%22%2F%3E%3C%2Fg%3E%3Ccircle%20cx%3D%2257.2%22%20cy%3D%2223.6%22%20r%3D%222.6%22%20fill%3D%22%23F0A35E%22%2F%3E%3Cpath%20d%3D%22M11%209l1.1%202.5%202.7.3-2%201.8.6%202.6L11%2014.9l-2.4%201.3.6-2.6-2-1.8%202.7-.3z%22%20fill%3D%22%23F6F1E8%22%2F%3E%3C%2Fsvg%3E">
-<link rel="preload" as="image" href="assets/hero-beach.webp">
+<link rel="preload" as="image" href="assets/hero-beach.webp" media="(min-width: 761px)">
+<link rel="preload" as="image" href="assets/hero-beach-sm.webp" media="(max-width: 760px)">
 <link rel="preload" href="assets/fonts/caveat-600.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="canonical" href="https://sadat-tanzim.github.io/">
 <meta property="og:type" content="website">
@@ -4183,7 +4184,6 @@ footer.foot p {
   background: transparent;
   color: var(--text);
   border: 1px solid var(--line-strong);
-  backdrop-filter: blur(8px);
 }
 #toTop:hover {
   background: var(--text);
@@ -4881,8 +4881,9 @@ body { background: transparent !important; background-image: none !important; }
   transform-origin: 70% 60%; transition: transform 2.2s var(--m-ease, ease); }
 html.m-on:not(.loaded) #scene .sc-photo img { transform: scale(1.08); }
 #scene .sc-photo::before { content: ""; position: absolute; left: 0; right: 0; top: 0; height: 30%; background: linear-gradient(180deg, #847d6a, rgba(132,125,106,0)); z-index: 1; }
-#scene .sc-night { position: absolute; inset: 0; opacity: var(--night); background: #03060e url("assets/night-sky.webp") center bottom / cover no-repeat; }
-@media (max-width: 760px) { #scene .sc-night { background-image: url("assets/night-sky-sm.webp"); } }
+#scene .sc-night { position: absolute; inset: 0; opacity: var(--night); background: #03060e center bottom / cover no-repeat; }
+html.sky-ready #scene .sc-night { background-image: url("assets/night-sky.webp"); }
+@media (max-width: 760px) { html.sky-ready #scene .sc-night { background-image: url("assets/night-sky-sm.webp"); } }
 #scene #stars { position: absolute; inset: 0; width: 100%; height: 100%; opacity: var(--stars); }
 #scene .sc-veil { position: absolute; inset: 0; background: #08090c; opacity: var(--veil); }
 
@@ -7308,7 +7309,7 @@ route();
   else {
     try { sessionStorage.setItem("ld", "1"); } catch (e) {}
     const bar = ld.querySelector(".ld-line i"), pct = ld.querySelector(".ld-pct");
-    const t0 = performance.now(), D = 1300;
+    const t0 = performance.now(), D = 850;
     const step = () => {
       const k = Math.min(1, (performance.now() - t0) / D), e = 1 - Math.pow(1 - k, 3);
       bar.style.transform = `scaleX(${e})`; pct.textContent = Math.round(e * 100) + "%";
@@ -7416,7 +7417,7 @@ route();
   const size = () => {
     scene.style.setProperty("--sh", innerHeight + "px");
     if (!ctx) return;
-    dpr = Math.min(devicePixelRatio || 1, 2); W = innerWidth; H = innerHeight;
+    dpr = Math.min(devicePixelRatio || 1, 1.5); W = innerWidth; H = innerHeight;
     cv.width = Math.round(W * dpr); cv.height = Math.round(H * dpr); ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     const n = Math.round((W * H) / 5200), tints = ["255,255,255", "255,255,255", "200,215,255", "255,225,240", "255,236,210"];
     stars = Array.from({ length: n }, () => ({ x: Math.random() * W, y: Math.pow(Math.random(), 1.3) * H * 0.9, r: Math.random() < 0.07 ? 1.2 + Math.random() * 0.9 : 0.35 + Math.random() * 0.7, a: 0.4 + Math.random() * 0.6, s: Math.random() * 6.28, f: 0.4 + Math.random() * 1.4, c: tints[Math.floor(Math.random() * tints.length)] }));
@@ -7482,8 +7483,16 @@ route();
   let q = false;
   const onScroll = () => { if (!q) { q = true; requestAnimationFrame(() => { q = false; update(); }); } };
   addEventListener("scroll", onScroll, { passive: true });
-  addEventListener("resize", () => { size(); update(); draw(performance.now()); });
+  let lastW = innerWidth, lastH = innerHeight;
+  addEventListener("resize", () => {
+    /* phones change the height when the address bar slides; only rebuild on a real resize */
+    if (innerWidth === lastW && Math.abs(innerHeight - lastH) < 160) { update(); return; }
+    lastW = innerWidth; lastH = innerHeight; size(); update(); draw(performance.now());
+  });
   addEventListener("hashchange", () => setTimeout(update, 300));
+  const skyReady = () => document.documentElement.classList.add("sky-ready");
+  if (document.readyState === "complete") setTimeout(skyReady, 300); else addEventListener("load", () => setTimeout(skyReady, 300));
+  addEventListener("scroll", skyReady, { once: true, passive: true });
   size(); update(); draw(0);
 
   /* Twinkle only while stars are visible, at a gentle frame rate */
@@ -7498,6 +7507,7 @@ route();
 /* =================== Focus band: content is sharp in the middle of the screen, soft at the edges =================== */
 (function () {
   if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+  if (matchMedia("(hover: none), (max-width: 760px)").matches) return;  /* phones: skip it, scrolling stays smooth */
   const SEL = [
     "#top section.sec .h-head", "#aboutBody > *", ".about-slot", ".by-pair", ".glance", ".skill-card", ".edu-list > li",
     ".act-card", ".proj-card", "#featProj", ".pub-card", ".exp-card", ".inv-group > h3", ".inv-card", ".inv-group li",
@@ -7505,6 +7515,7 @@ route();
     "#detail .back", "#detail .d-head", "#detail .d-sheet", "#detail .d-stages", "#detail .d-sec", "#detail .gallery figure", "#detail .pager"
   ].join(",");
   let els = [], q = false;
+  const prev = new WeakMap();
   const collect = () => { els = [...document.querySelectorAll(SEL)].filter((e) => !e.closest("[hidden]")); };
   const run = () => {
     q = false;
@@ -7517,7 +7528,9 @@ route();
       if (c < top) k = (top - c) / (H * 0.22);
       else if (c > bot) k = (c - bot) / (H * 0.16);
       k = Math.min(1, Math.max(0, k));
-      el.style.filter = k > 0.01 ? `blur(${(k * 7).toFixed(1)}px) opacity(${(1 - k * 0.75).toFixed(2)})` : "";
+      const step = Math.round(k * 8);                       /* 9 steps instead of a new value every frame */
+      if (prev.get(el) === step) continue; prev.set(el, step);
+      el.style.filter = step ? `blur(${(step * 0.5).toFixed(1)}px) opacity(${(1 - step * 0.08).toFixed(2)})` : "";
     }
   };
   const queue = () => { if (!q) { q = true; requestAnimationFrame(run); } };
